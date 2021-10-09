@@ -1,21 +1,37 @@
-<form [formGroup]="loginForm">
-  <div class="form-group">
-    <label>Email address: </label>
-    <input type="email" formControlName="email" class="form-control" required>
+<form [formGroup]="form">
+  <div class="container-fluid">
+    <div class="row no-gutter">
+      <div class="col-md-4 d-none d-md-flex bg-image"></div>
+      <div class="col-md-8 bg-light">
+        <div class="login d-flex align-items-center py-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 col-xl-7 mx-auto">
+                <h1 class="display-4" style="text-align: center">Hershey Heights Apartments</h1>
+                <p class="text-muted mb-4" style="text-align: center">Apartment management system login</p>
+                <form>
+                  <div class="form-group mb-3">
+                    <input id="inputEmail" type="email" placeholder="Email address" formControlName="email" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                  </div>
+                  <div class="form-group mb-3">
+                    <input id="inputPassword" type="password" placeholder="Password" formControlName="password" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                  </div>
+                  <div class="custom-control custom-checkbox mb-3">
+                    <input id="customCheck1" type="checkbox" checked class="custom-control-input">
+                    <label for="customCheck1" class="custom-control-label">Remember password</label>
+                  </div>
+                  <div *ngIf="!authService.isLoggedIn; else signout"><button [disabled]="!form.valid" type="button" (click)="tryLogin(form.value)" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign in</button></div>
+                  <ng-template #signout><button type="button" (click)="tryLogout()" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign Out</button></ng-template>
+                  <label class="error">{{ errorMessage }}</label>
+                  <label class="success">{{ successMessage }}</label>
+                  <p>Test login - admin@admin.com:password123</p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label>Password: </label>
-    <input type="password" class="form-control" formControlName="password" required>
-    <label class="error">{{ errorMessage }}</label>
-    <label class="success">{{ successMessage }}</label>
-  </div>
-  <button type="submit" (click)="tryLogin(loginForm.value)" class="btn btn-default">Login</button>
-  <button type="submit" (click)="tryLogout()" class="btn btn-default">Logout</button>
-  <br>
-  <button type="submit" (click)="testPage()" class="btn btn-default">Test Page (Can only see if you are logged in)</button>
-  <br>
-  <br>
-  Login with this to test:<br>
-  admin@admin.com<br>
-  password123
 </form>
+
