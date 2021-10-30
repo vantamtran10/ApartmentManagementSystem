@@ -3,6 +3,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth'
 import { getAuth, signInWithEmailAndPassword  } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import {Router} from "@angular/router";
+import { User } from "../user/user"
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +66,7 @@ export class AuthService {
       return this.afAuth.signOut()
         .then((res) => {
         localStorage.removeItem('user');
+        this.router.navigate(['login']);
         resolve(res);
       })
         .catch((error) => {

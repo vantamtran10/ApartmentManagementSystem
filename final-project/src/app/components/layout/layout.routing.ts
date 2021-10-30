@@ -1,57 +1,10 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from "../../core/guard/auth.guard";
 
-
-import { TenantsDashboardComponent } from "../tenants-dashboard/tenants-dashboard.component";
+import { TenantsDashboardComponent } from "../tenant-pages/tenants-dashboard/tenants-dashboard.component";
+import { MaintenanceRequestsComponent } from "../tenant-pages/maintenance-requests/maintenance-requests.component";
 
 export const LayoutRoutes: Routes = [
-  // {
-  //   path: '',
-  //   children: [ {
-  //     path: 'dashboard',
-  //     component: DashboardComponent
-  // }]}, {
-  // path: '',
-  // children: [ {
-  //   path: 'userprofile',
-  //   component: UserProfileComponent
-  // }]
-  // }, {
-  //   path: '',
-  //   children: [ {
-  //     path: 'icons',
-  //     component: IconsComponent
-  //     }]
-  // }, {
-  //     path: '',
-  //     children: [ {
-  //         path: 'notifications',
-  //         component: NotificationsComponent
-  //     }]
-  // }, {
-  //     path: '',
-  //     children: [ {
-  //         path: 'maps',
-  //         component: MapsComponent
-  //     }]
-  // }, {
-  //     path: '',
-  //     children: [ {
-  //         path: 'typography',
-  //         component: TypographyComponent
-  //     }]
-  // }, {
-  //     path: '',
-  //     children: [ {
-  //         path: 'upgrade',
-  //         component: UpgradeComponent
-  //     }]
-  // }
-  { path: 'tenants', component: TenantsDashboardComponent },
-  // { path: 'user-profile',   component: UserProfileComponent },
-  // { path: 'table-list',     component: TableListComponent },
-  // { path: 'typography',     component: TypographyComponent },
-  // { path: 'icons',          component: IconsComponent },
-  // { path: 'maps',           component: MapsComponent },
-  // { path: 'notifications',  component: NotificationsComponent },
-  // { path: 'upgrade',        component: UpgradeComponent },
+  { path: 'tenants', component: TenantsDashboardComponent, canActivate: [AuthGuard]},
+  { path: 'maintenance-requests', component: MaintenanceRequestsComponent, canActivate: [AuthGuard]},
 ];

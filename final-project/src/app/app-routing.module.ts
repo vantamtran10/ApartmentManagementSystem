@@ -9,8 +9,6 @@ import {LayoutComponent} from "./components/layout/layout.component";
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
-  // { path: 'tenants', component: TenantComponent, canActivate: [AuthGuard]},
-  { path: 'landlords', component: TestComponent, canActivate: [AuthGuard]},
   {
     path: '',
     component: LayoutComponent,

@@ -1,18 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
   <div class="container-fluid">
     <div class="navbar-wrapper">
-      <h1 class="navbar-brand"><strong>{{getTitle()}}</strong><br>Welcome back, {{this.authService.userData.first_name}}</h1>
+      <h1 class="navbar-brand"><strong>{{getTitle()}}</strong></h1>
     </div>
-    <button mat-raised-button class="navbar-toggler" type="button" (click)="sidebarToggle()">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-    </button>
     <div class="collapse navbar-collapse justify-content-end" id="navigation">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="javascript:void(0)">
+            <span *ngIf="this.authService.userData">{{this.authService.userData.first_name}} {{this.authService.userData.last_name}}</span>
             <i class="material-icons">person</i>
             <p>
               <span class="d-lg-none d-md-block">Account</span>

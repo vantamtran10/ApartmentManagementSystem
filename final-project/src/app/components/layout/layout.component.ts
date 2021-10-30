@@ -50,10 +50,6 @@ export class LayoutComponent implements OnInit {
       }
     });
 
-    // this._router = this.router.events.filter((event: any) => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
-    //   elemMainPanel.scrollTop = 0;
-    //   elemSidebar.scrollTop = 0;
-    // });
     this._router = this.router.events.pipe(
       filter((event: any) => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
@@ -148,16 +144,6 @@ export class LayoutComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.runOnRouteChange();
-  }
-  isMaps(path: string){
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-    titlee = titlee.slice( 1 );
-    if(path == titlee){
-      return false;
-    }
-    else {
-      return true;
-    }
   }
   runOnRouteChange(): void {
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
