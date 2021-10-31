@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
 import { getAuth, signInWithEmailAndPassword  } from "firebase/auth";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { collection, query, where, getFirestore, getDocs } from "firebase/firestore";
 import {Router} from "@angular/router";
 import { User } from "../user/user"
 import {Observable} from "rxjs";
@@ -10,34 +10,31 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class AuthService {
-  userData: any; // Save logged in user data
 
   constructor(public afAuth: AngularFireAuth, public router: Router){
     // Saving user data in localstorage when logged in and setting up null when logged out
     this.afAuth.authState.subscribe(async user => {
+      let userData;
       if (user) {
         const db = getFirestore();
-        let docRef = doc(db, "users", user.uid);
-        let docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          let data = docSnap.data();
-          const group = data.type.parent.id;
-          docRef = doc(db, data.type.parent.id, data.type.id)
-          docSnap = await getDoc(docRef);
-          if (docSnap.exists()){
-            this.userData = data;
-            this.userData["id"] = user.uid;
-            this.userData["type"] = docSnap.data();
-            this.userData["type"]["group"] = group;
-            console.log(this.userData); //
-            localStorage.setItem('user', JSON.stringify(this.userData));
+        const usersRef = collection(db, "users");
+        const usersQuery = query(usersRef, where("id", "==", user.uid));
+        const userQuerySnapshot = await getDocs(usersQuery);
+        if (userQuerySnapshot.docs.length == 1){
+          const userDoc = userQuerySnapshot.docs[0].data();
+          const group = userDoc.type.parent.id;
+          const typeRef = collection(db, group);
+          const typeQuery = query(typeRef, where("id", "==", user.uid));
+          const typeQuerySnapshot = await getDocs(typeQuery);
+          if (typeQuerySnapshot.docs.length == 1){
+            const typeDoc = typeQuerySnapshot.docs[0].data();
+            userData = userDoc;
+            userData['type'] = typeDoc;
+            userData['type']['group'] = group;
+            localStorage.setItem('user', JSON.stringify(userData));
             JSON.parse(<string>localStorage.getItem('user'));
             this.router.navigate([group]);
-          } else {
-            console.log("That person has not been registered into a user group!")
           }
-        } else {
-          console.log("That person does not exist!");
         }
       } else {
         // @ts-ignore

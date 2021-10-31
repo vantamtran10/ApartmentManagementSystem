@@ -7,7 +7,7 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="javascript:void(0)">
-            <span *ngIf="this.authService.userData">{{this.authService.userData.first_name}} {{this.authService.userData.last_name}}</span>
+            <span *ngIf="this.queryService.userData">{{this.queryService.userData.first_name}} {{this.queryService.userData.last_name}}</span>
             <i class="material-icons">person</i>
             <p>
               <span class="d-lg-none d-md-block">Account</span>

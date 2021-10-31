@@ -28,7 +28,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatSelectModule} from '@angular/material/select';
 
-
+AngularFireModule.initializeApp(environment.firebase);
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +38,6 @@ import { MatSelectModule} from '@angular/material/select';
     NavbarComponent,
     FooterComponent,
     SidebarComponent,
-
   ],
   imports: [
     BrowserModule,

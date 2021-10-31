@@ -5,46 +5,58 @@
         <div class="card">
           <div class="card-header card-header-warning">
             <h4 class="card-title">Neighbors</h4>
-            <p class="card-category">All neighbors near Room </p>
+            <p class="card-category">All neighbors on Floor {{queryService.userData.type.floor}}</p>
           </div>
           <div class="card-body table-responsive">
             <table class="table table-hover">
               <thead class="text-warning">
-              <th>ID</th>
-              <th>Name</th>
-              <th>Salary</th>
-              <th>Country</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Room Number</th>
               </thead>
               <tbody>
-              <tr>
-                <td>1</td>
-                <td>Dakota Rice</td>
-                <td>$36,738</td>
-                <td>Niger</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Minerva Hooper</td>
-                <td>$23,789</td>
-                <td>Curaçao</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Sage Rodriguez</td>
-                <td>$56,142</td>
-                <td>Netherlands</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Philip Chaney</td>
-                <td>$38,735</td>
-                <td>Korea, South</td>
-              </tr>
+              <ng-container *ngFor="let x of Object.keys(neighbors)">
+                <tr>
+                  <td>{{neighbors[x].first_name}}</td>
+                  <td>{{neighbors[x].last_name}}</td>
+                  <td>{{neighbors[x].room}}</td>
+                </tr>
+              </ng-container>
               </tbody>
             </table>
           </div>
         </div>
       </div>
+      <div class="col-lg-6 col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Maintenance Request</h4>
+            <p class="card-category">Create a quick maintenance request</p>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input matInput id="subject" placeholder="Request Subject" type="text" [formControl]="subject">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput id="description" placeholder="Request Description" [formControl]="description"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="createMaintenanceRequest()">Send Request</button>
+              <div class="clearfix"></div>
+            </form>
+            <label class="error">{{ errorMessage }}</label>
+            <label class="success">{{ successMessage }}</label>
+          </div>
+        </div>
+      </div>
+      </div>
     </div>
-  </div>
 </div>

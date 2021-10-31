@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
-import {AuthService} from "../../core/service/auth/auth.service";
+import {QueryService} from "../../core/service/query/query.service";
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   mobile_menu_visible: any = 0;
   private toggleButton: any;
 
-  constructor(location: Location,  private element: ElementRef, private router: Router, public authService: AuthService) {
+  constructor(location: Location,  private element: ElementRef, private router: Router, public queryService: QueryService) {
     this.location = location;
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // @ts-ignore
 import * as $ from "jquery";
 import {AuthService} from "../../core/service/auth/auth.service";
+import {QueryService} from "../../core/service/query/query.service";
 
 declare const $: any;
 declare interface RouteInfo {
@@ -25,7 +26,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[] | undefined;
-  constructor(public authService: AuthService) { }
+  constructor(public queryService: QueryService, public authService: AuthService) { }
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
