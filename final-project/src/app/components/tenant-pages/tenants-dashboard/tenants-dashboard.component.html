@@ -10,6 +10,7 @@
           <div class="card-body table-responsive">
             <table class="table table-hover">
               <thead class="text-warning">
+              <th>Photo</th>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Room Number</th>
@@ -17,6 +18,7 @@
               <tbody>
               <ng-container *ngFor="let x of Object.keys(neighbors)">
                 <tr>
+                  <td><img src="{{neighbors[x].photo}}" alt="Photo" width="50" height="50"></td>
                   <td>{{neighbors[x].first_name}}</td>
                   <td>{{neighbors[x].last_name}}</td>
                   <td>{{neighbors[x].room}}</td>

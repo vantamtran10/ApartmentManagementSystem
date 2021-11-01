@@ -8,11 +8,22 @@
         <li class="nav-item">
           <a class="nav-link" href="javascript:void(0)">
             <span *ngIf="this.queryService.userData">{{this.queryService.userData.first_name}} {{this.queryService.userData.last_name}}</span>
-            <i class="material-icons">person</i>
             <p>
               <span class="d-lg-none d-md-block">Account</span>
             </p>
           </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="https://i.imgur.com/buPizlF.png" alt="Photo" width="40" height="40">
+            <p>
+              <span class="d-lg-none d-md-block">Some Actions</span>
+            </p>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="javascript:void(0)" (click)="openDialog()">Change Image</a>
+            <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Logout</a>
+          </div>
         </li>
       </ul>
     </div>

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {LayoutRoutes} from "./layout.routing";
 import { TenantsDashboardComponent } from "../tenant-pages/tenants-dashboard/tenants-dashboard.component";
+import { MaintenanceRequestsComponent } from "../tenant-pages/maintenance-requests/maintenance-requests.component";
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatRippleModule} from '@angular/material/core';
@@ -25,7 +26,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatTooltipModule,
   ],
   declarations: [
-    TenantsDashboardComponent
+    TenantsDashboardComponent,
+    MaintenanceRequestsComponent
   ]
 })
 

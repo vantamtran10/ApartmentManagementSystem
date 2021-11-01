@@ -27,6 +27,8 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatSelectModule} from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
 
 AngularFireModule.initializeApp(environment.firebase);
 @NgModule({
@@ -57,7 +59,9 @@ AngularFireModule.initializeApp(environment.firebase);
     MatRippleModule,
     MatFormFieldModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    HttpClientModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
