@@ -5,6 +5,7 @@ import { AuthGuard } from "./core/guard/auth.guard";
 import { LoginComponent } from "./components/login/login.component";
 import { TestComponent } from "./components/test/test.component";
 import {LayoutComponent} from "./components/layout/layout.component";
+import {MaintenanceComponent} from "./components/maintenance/maintenance.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +17,10 @@ const routes: Routes = [
       path: '',
       loadChildren: () => import('./../app/components/layout/layout.module').then(m => m.LayoutModule)
     }]
+  },
+  {
+    path: 'maintenance',
+    component: MaintenanceComponent
   }
 
 ];

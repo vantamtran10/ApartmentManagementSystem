@@ -29,6 +29,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatSelectModule} from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
+import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 
 AngularFireModule.initializeApp(environment.firebase);
 @NgModule({
@@ -40,6 +41,7 @@ AngularFireModule.initializeApp(environment.firebase);
     NavbarComponent,
     FooterComponent,
     SidebarComponent,
+    MaintenanceComponent,
   ],
   imports: [
     BrowserModule,
