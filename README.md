@@ -5,7 +5,7 @@
     <img src="logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Hershey Heights Apartment Management System</h3><br>
+  <h3 align="center">Hien Heights Apartment Management System</h3><br>
   <h3 align="center">https://finalproject-d2f5c.firebaseapp.com/</h3><br>
 
   <p align="center">
