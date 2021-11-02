@@ -16,8 +16,6 @@ export class NavbarComponent implements OnInit {
   location: Location;
   mobile_menu_visible: any = 0;
   private toggleButton: any;
-  animal: string | undefined;
-  name: string | undefined;
   constructor(location: Location,  private element: ElementRef, private router: Router, public queryService: QueryService, private authService: AuthService,
               public dialog: MatDialog) {
     this.location = location;
@@ -56,12 +54,10 @@ export class NavbarComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
-      data: {name: this.name, animal: this.animal}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
     });
   }
 
@@ -70,10 +66,6 @@ export class NavbarComponent implements OnInit {
   }
 }
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
 @Component({
   selector: 'change-image',
   templateUrl: 'change-image.html',
@@ -82,7 +74,7 @@ export class DialogOverviewExampleDialog {
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   uploadImage(): void {
     this.dialogRef.close();

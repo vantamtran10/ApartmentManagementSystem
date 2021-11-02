@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Observable} from "rxjs/Observable";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Component({
   selector: 'app-maintenance-requests',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MaintenanceRequestsComponent implements OnInit {
 
-  constructor() { }
+  list: Observable<any[]>;
+  constructor(firestore: AngularFirestore) {
+    this.list = firestore.collection('maintenance-requests').valueChanges();
+  }
 
   ngOnInit(): void {
   }

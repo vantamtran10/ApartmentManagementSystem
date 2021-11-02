@@ -67,4 +67,44 @@ export class QueryService {
       });
   });
   }
+
+  USERGetMessages(){
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('messages', ref => ref.where('id', '==', `${this.userData.id}`)).get().subscribe(messages => {
+        if (messages.docs.length === 1){
+          let incoming: any[] = [];
+          // @ts-ignore
+          for (let i=0; i<messages.docs[0].data().incoming.length; i++){
+            // @ts-ignore
+            let temp = messages.docs[0].data().incoming[i];
+            const date = new Date(temp.time.seconds*1000);
+            temp['time'] = `${date.getMonth()+1}/${date.getDay()}/${date.getFullYear()} ${date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true})}`
+            // @ts-ignore
+            messages.docs[0].data().incoming[i].from.get().then((x: any) => {
+              temp['from'] = `${x.data().first_name} ${x.data().last_name}`;
+              temp['fromID'] = x.data().id;
+              temp['messageID'] = i;
+              incoming.push(temp);
+            });
+          }
+          observer.next(incoming);
+        }
+      });
+    });
+  }
+
+  USERDeleteMessage(index: number){
+    return new Promise((resolve, reject) => {
+      this.firestore.collection('messages', ref => ref.where('id', '==', `${this.userData.id}`)).get().subscribe(messages => {
+        if (messages.docs.length === 1){
+          // @ts-ignore
+          let incoming = messages.docs[0].data().incoming;
+          incoming.splice(index, 1);
+          messages.docs[0].ref.update({'incoming': incoming}).then(r => resolve(r));
+        } else {
+          reject();
+        }
+      });
+    });
+  }
 }

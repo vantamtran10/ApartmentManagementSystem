@@ -1,0 +1,6 @@
+<h1>{{data.subject}}</h1>
+<h4>From: {{data.from}}</h4>
+<h4>Time: {{data.time}}</h4>
+<h4>{{data.message}}</h4>
+<button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="deleteMessage()">Delete</button>
+<button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="openDialogReply()">Reply</button>
