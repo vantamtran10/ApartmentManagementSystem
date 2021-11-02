@@ -1,1 +1,11 @@
-<h1>Test</h1>
+<h1>Reply to {{this.data.from}}</h1>
+<form>
+  <textarea id="reply" placeholder="Request Description" rows="4" cols="60"></textarea><br>
+  <button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="sendMessage()">Send</button><br>
+  <label class="success" style="color: green">{{ messageDelivered }}</label>
+</form>
+
+<!--<mat-form-field class="example-form-field" appearance="fill">-->
+<!--  <input matInput type="text" formControlName="message">-->
+<!--  <button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="sendMessage()">Send</button>-->
+<!--</mat-form-field>-->

@@ -107,4 +107,28 @@ export class QueryService {
       });
     });
   }
+
+  USERSendMessage(TOid: string, message: string, subject: string){
+    return new Promise((resolve, reject) => {
+      this.firestore.collection('users', ref => ref.where('id', '==', `${this.userData.id}`)).get().subscribe(user => {
+        if (user.docs.length === 1){
+          let fromRef = user.docs[0].ref;
+          this.firestore.collection('messages', ref2 => ref2.where('id', '==', `${TOid}`)).get().subscribe(messages => {
+            if (messages.docs.length === 1){
+              let m = {
+                from: fromRef,
+                message: message,
+                subject: subject,
+                time: new Date()
+              }
+              // @ts-ignore
+              let incoming = messages.docs[0].data().incoming;
+              incoming.push(m);
+              messages.docs[0].ref.update({'incoming': incoming}).then(r => resolve(r));
+            }
+          });
+        }
+      });
+    });
+  }
 }

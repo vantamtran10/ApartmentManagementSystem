@@ -25,7 +25,6 @@ export class TenantsDashboardComponent implements OnInit {
     });
     this.queryService.USERGetMessages().subscribe(x => {
       this.messages = x;
-      console.log(this.messages);
     });
   }
 
@@ -42,7 +41,7 @@ export class TenantsDashboardComponent implements OnInit {
 
   openDialog(from: string, subject: string, message: string, time: string, fromID: string, messageID: number): void {
     const dialogRef = this.dialog.open(DialogReadMessage, {
-      width: '250px',
+      width: '100vw',
       data: {from: from, subject: subject, message: message, time: time, fromID: fromID, messageID: messageID}
     });
 
@@ -74,12 +73,12 @@ export class DialogReadMessage {
 
   openDialogReply(): void {
     const dialogRef = this.dialog.open(DialogReplyMessage, {
-      width: '250px',
-      // data: {from: from, subject: subject, message: message, time: time, fromID: fromID, messageID: messageID}
+      width: '30vw',
+      data: this.data
     });
 
     // dialogRef.afterClosed().subscribe(result => {
-    //   this.messages.splice(result, 1);
+    //
     // });
   }
 
@@ -90,15 +89,20 @@ export class DialogReadMessage {
   templateUrl: 'reply-message.html',
 })
 export class DialogReplyMessage {
-
+  message = new FormControl('');
+  messageDelivered = '';
   constructor(
     public dialogRef: MatDialogRef<DialogReplyMessage>,
     public queryService: QueryService,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
-
-  deleteMessage(){
-    this.queryService.USERDeleteMessage(this.data.messageID).then(x => {
-      this.dialogRef.close(this.data.messageID);
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
+  delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+  sendMessage(){
+    // @ts-ignore
+    let message = document.getElementById("reply").value
+    this.queryService.USERSendMessage(this.data.fromID, `${message}\n------------\n${this.data.time} ${this.data.from}: ${this.data.message}`, `RE: ${this.data.subject}`).then(r => {
+      this.messageDelivered = 'Message sent successfully';
+      this.delay(3000).then(r => this.dialogRef.close());
     });
   }
 
