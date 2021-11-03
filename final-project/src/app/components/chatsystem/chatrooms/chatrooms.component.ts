@@ -1,8 +1,10 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { DatePipe } from '@angular/common';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,31 +22,31 @@ export const snapshotToArray = (snapshot: any) => {
 };
 
 @Component({
-  selector: 'app-rooms',
-  templateUrl: './rooms.component.html',
-  styleUrls: ['./rooms.component.scss']
+  selector: 'app-chatrooms',
+  templateUrl: './chatrooms.component.html',
+  styleUrls: ['./chatrooms.component.scss']
 })
 
-export class RoomsComponent implements OnInit {
+export class ChatroomsComponent implements OnInit {
 
   public nickname: (string | null) = '';
   public displayedColumns = ['roomname'];
-  public rooms: (any[]) = [];
+  public rooms: (Observable<any[]>);
+  public roomList = []
   public isLoadingResults = true;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private db: AngularFireDatabase
   ) {
-    this.nickname = localStorage.getItem('nickname');
-    firebase.database().ref('rooms/').on('value', resp => {
-      this.rooms = [];
-      this.rooms = snapshotToArray(resp);
-      this.isLoadingResults = false;
-    });
+    this.rooms = db.list('rooms').valueChanges();
+    this.isLoadingResults = false;
+
   }
 
+  // work-in-progress
   enterChatRoom(roomname: string) {
     const chat:any = {roomname: '', nickname: '', message: '', date: '', type: ''};
     chat.roomname = roomname;

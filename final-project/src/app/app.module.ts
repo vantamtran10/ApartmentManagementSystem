@@ -1,5 +1,6 @@
-import { ChatComponent } from './components/tenant-pages/chat/chat.component';
-import { RoomsComponent } from './components/tenant-pages/rooms/rooms.component';
+import { AddroomComponent } from './components/chatsystem/addroom/addroom.component';
+import { ChatComponent } from './components/chatsystem/chat/chat.component';
+import { ChatroomsComponent } from './components/chatsystem/chatrooms/chatrooms.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthService } from "./core/service/auth/auth.service";
@@ -23,7 +24,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatRippleModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -36,8 +37,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
-
-
 AngularFireModule.initializeApp(environment.firebase);
 @NgModule({
   declarations: [
@@ -48,8 +47,9 @@ AngularFireModule.initializeApp(environment.firebase);
     NavbarComponent,
     FooterComponent,
     SidebarComponent,
-    RoomsComponent,
-    ChatComponent
+    ChatroomsComponent,
+    ChatComponent,
+    AddroomComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,9 +74,12 @@ AngularFireModule.initializeApp(environment.firebase);
     HttpClientModule,
     MatTableModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    DatePipe,
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

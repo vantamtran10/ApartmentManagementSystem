@@ -1,4 +1,4 @@
-import { RoomsComponent } from './../tenant-pages/rooms/rooms.component';
+import { ChatroomsComponent } from '../chatsystem/chatrooms/chatrooms.component';
 import { Routes } from '@angular/router';
 import { AuthGuard } from "../../core/guard/auth.guard";
 
@@ -8,5 +8,5 @@ import { MaintenanceRequestsComponent } from "../tenant-pages/maintenance-reques
 export const LayoutRoutes: Routes = [
   { path: 'tenants', component: TenantsDashboardComponent, canActivate: [AuthGuard]},
   { path: 'maintenance-requests', component: MaintenanceRequestsComponent, canActivate: [AuthGuard]},
-  { path: 'rooms', component: RoomsComponent}
+  { path: 'chatrooms', component: ChatroomsComponent, canActivate: [AuthGuard]}
 ];
