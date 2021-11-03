@@ -8,5 +8,5 @@ import { MaintenanceRequestsComponent } from "../tenant-pages/maintenance-reques
 export const LayoutRoutes: Routes = [
   { path: 'tenants', component: TenantsDashboardComponent, canActivate: [AuthGuard]},
   { path: 'maintenance-requests', component: MaintenanceRequestsComponent, canActivate: [AuthGuard]},
-  { path: 'rooms', component: RoomsComponent, canActivate: [AuthGuard]}
+  { path: 'rooms', component: RoomsComponent}
 ];

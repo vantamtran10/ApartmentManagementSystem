@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { ChatComponent } from './components/tenant-pages/chat/chat.component';
+import { RoomsComponent } from './components/tenant-pages/rooms/rooms.component';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthService } from "./core/service/auth/auth.service";
 
@@ -30,7 +32,7 @@ import { MatSelectModule} from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
@@ -46,6 +48,8 @@ AngularFireModule.initializeApp(environment.firebase);
     NavbarComponent,
     FooterComponent,
     SidebarComponent,
+    RoomsComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +73,6 @@ AngularFireModule.initializeApp(environment.firebase);
     MatDialogModule,
     HttpClientModule,
     MatTableModule,
-    MatTableDataSource,
     MatIconModule,
     MatProgressSpinnerModule
   ],

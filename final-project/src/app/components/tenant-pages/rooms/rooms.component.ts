@@ -1,11 +1,11 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { DatePipe } from '@angular/common';
 
 import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon';
 
 export const snapshotToArray = (snapshot: any) => {
   const returnArr: any[] = [];
@@ -19,12 +19,12 @@ export const snapshotToArray = (snapshot: any) => {
   return returnArr;
 };
 
-
 @Component({
   selector: 'app-rooms',
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.scss']
 })
+
 export class RoomsComponent implements OnInit {
 
   public nickname: (string | null) = '';
