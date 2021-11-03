@@ -58,6 +58,7 @@
                   <th>Created</th>
                   <th>Subject</th>
                   <th>Description</th>
+                  <th>Staff</th>
                   </thead>
                   <tbody>
                   <ng-container *ngFor="let item of list | async">
@@ -66,6 +67,7 @@
                         <td>{{item.created.toDate() | date:'MM/dd/yyyy'}}</td>
                         <td>{{item.details.subject}}</td>
                         <td>{{item.details.description}}</td>
+                        <td>{{item.details.staff}}</td>
                       </tr>
                     </ng-container>
                   </ng-container>
@@ -78,6 +80,8 @@
                   <th>Created</th>
                   <th>Subject</th>
                   <th>Description</th>
+                  <th>Staff</th>
+                  <th>Notes</th>
                   </thead>
                   <tbody>
                   <ng-container *ngFor="let item of list | async">
@@ -86,6 +90,8 @@
                         <td>{{item.created.toDate() | date:'MM/dd/yyyy'}}</td>
                         <td>{{item.details.subject}}</td>
                         <td>{{item.details.description}}</td>
+                        <td>{{item.details.staff}}</td>
+                        <td>{{item.details.notes}}</td>
                       </tr>
                     </ng-container>
                   </ng-container>

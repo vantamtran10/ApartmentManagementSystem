@@ -46,7 +46,11 @@ export class TenantsDashboardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) this.messages.splice(result, 1);
+      if (result !== undefined){
+        this.queryService.USERGetMessages().subscribe(x => {
+          this.messages = x;
+        });
+      }
     });
   }
 
