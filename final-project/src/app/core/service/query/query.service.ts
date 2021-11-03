@@ -68,6 +68,18 @@ export class QueryService {
   });
   }
 
+  TENANTGetMaintenanceRequests(): Observable<any[]>{
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('tenants', ref => ref.where('id', '==', this.userData.id)).get()
+        // @ts-ignore
+        .subscribe(tenant => {
+          if (tenant.docs.length === 1){
+            observer.next(this.firestore.collection('maintenance-requests', ref2 => ref2.where('tenant', '==', tenant.docs[0].ref)));
+          }
+        });
+    });
+  }
+
   USERGetMessages(){
     return new Observable((observer: Observer<any>) => {
       this.firestore.collection('messages', ref => ref.where('id', '==', `${this.userData.id}`)).get().subscribe(messages => {
