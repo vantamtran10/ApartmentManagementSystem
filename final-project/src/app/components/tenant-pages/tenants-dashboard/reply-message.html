@@ -1,6 +1,6 @@
-<h1>Reply to {{this.data.from}}</h1>
+<h1 style="text-align: center">Reply to {{this.data.from}}</h1>
 <form>
-  <textarea id="reply" placeholder="Request Description" rows="4" cols="60"></textarea><br>
-  <button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="sendMessage()">Send</button><br>
+  <textarea style="margin-left: auto; margin-right: auto; display: block" id="reply" placeholder="Message" rows="10" cols="60"></textarea><br>
+  <button style="margin-left: auto; margin-right: auto; display: block" mat-raised-button type="button" class="btn btn-danger pull-right" (click)="sendMessage()">Send</button><br>
   <label class="success" style="color: green">{{ messageDelivered }}</label>
 </form>

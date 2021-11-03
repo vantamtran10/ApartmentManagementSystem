@@ -41,7 +41,7 @@ export class TenantsDashboardComponent implements OnInit {
 
   openDialog(from: string, subject: string, message: string, time: string, fromID: string, messageID: number): void {
     const dialogRef = this.dialog.open(DialogReadMessage, {
-      width: '100vw',
+      width: '30vw',
       data: {from: from, subject: subject, message: message, time: time, fromID: fromID, messageID: messageID}
     });
 
