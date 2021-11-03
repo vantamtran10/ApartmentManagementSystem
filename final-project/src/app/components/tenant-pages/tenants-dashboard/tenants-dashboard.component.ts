@@ -41,12 +41,23 @@ export class TenantsDashboardComponent implements OnInit {
 
   openDialog(from: string, subject: string, message: string, time: string, fromID: string, messageID: number): void {
     const dialogRef = this.dialog.open(DialogReadMessage, {
-      width: '100vw',
+      width: '30vw',
       data: {from: from, subject: subject, message: message, time: time, fromID: fromID, messageID: messageID}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) this.messages.splice(result, 1);
+      if (result !== undefined){
+        this.queryService.USERGetMessages().subscribe(x => {
+          this.messages = x;
+        });
+      }
+    });
+  }
+
+  openNeighborDialog(first_name: string, last_name: string, room: number, photo: string){
+    const dialogRef = this.dialog.open(DialogNeighbor, {
+      width: '15vw',
+      data: {first_name: first_name, last_name: last_name, room: room, photo: photo}
     });
   }
 
@@ -104,6 +115,18 @@ export class DialogReplyMessage {
       this.messageDelivered = 'Message sent successfully';
       this.delay(3000).then(r => this.dialogRef.close());
     });
+  }
+
+}
+
+@Component({
+  selector: 'neighbor',
+  templateUrl: 'neighbor.html',
+})
+export class DialogNeighbor {
+  constructor(
+    public dialogRef: MatDialogRef<DialogReplyMessage>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
 }

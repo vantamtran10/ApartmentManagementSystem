@@ -2,53 +2,106 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 col-md-12">
-
         <div class="card">
-          <div class="card-header card-header-primary">
-            <h4 class="card-title">Maintenance Requests</h4>
-            <p class="card-category">All maintenance requests</p>
-          </div>
-
-          <div class="card-body">
-            <div class="card-body table-responsive">
-              <table class="table table-hover">
-                <thead class="text-primary">
-                <th colspan="2">Open Requests</th>
-                </thead>
-                <tbody>
-                <ng-container *ngFor="let item of list | async">
-                  <ng-container *ngIf="item.details.status=='open'">
-                    <tr>
-<!--                      <td><img src="{{item.tenant}}" alt="Photo" width="50" height="50"></td>-->
-                      <td>{{item.details.subject}} - {{item.details.description}}</td>
-                    </tr>
-                  </ng-container>
-                </ng-container>
-                </tbody>
-              </table>
+          <div class="card-header card-header-tabs card-header-primary">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title">Maintenance Requests</span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="nav-item">
+                    <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
+                      <i class="material-icons">assignment</i> Open Requests
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#messages" data-toggle="tab">
+                      <i class="material-icons">assignment_return</i> In-progress Requests
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#settings" data-toggle="tab">
+                      <i class="material-icons">assignment_turned_in</i> Completed Requests
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-
           <div class="card-body">
-            <div class="card-body table-responsive">
-              <table class="table table-hover">
-                <thead class="text-primary">
-                <th colspan="2">In Progress</th>
-                </thead>
-                <tbody>
-                <ng-container *ngFor="let item of list | async">
-                  <ng-container *ngIf="item.details.status !='open'">
-                    <tr>
-<!--                      <td><img src="{{item.tenant}}" alt="Photo" width="50" height="50"></td>-->
-                      <td>{{item.details.subject}} - {{item.details.description}}</td>
-                    </tr>
+            <div class="tab-content">
+              <div class="tab-pane active" id="profile">
+                <table class="table table-hover">
+                  <thead class="text-primary">
+                  <th>Created</th>
+                  <th>Subject</th>
+                  <th>Description</th>
+                  </thead>
+                  <tbody>
+                  <ng-container *ngFor="let item of list | async">
+                    <ng-container *ngIf="item.details.status == 'open'">
+                      <tr>
+                        <td>{{item.created.toDate() | date:'MM/dd/yyyy'}}</td>
+                        <td>{{item.details.subject}}</td>
+                        <td>{{item.details.description}}</td>
+                      </tr>
+                    </ng-container>
                   </ng-container>
-                </ng-container>
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane" id="messages">
+                <table class="table table-hover">
+                  <thead class="text-primary">
+                  <th>Created</th>
+                  <th>Subject</th>
+                  <th>Description</th>
+                  <th>Staff</th>
+                  </thead>
+                  <tbody>
+                  <ng-container *ngFor="let item of list | async">
+                    <ng-container *ngIf="item.details.status == 'progress'">
+                      <tr>
+                        <td>{{item.created.toDate() | date:'MM/dd/yyyy'}}</td>
+                        <td>{{item.details.subject}}</td>
+                        <td>{{item.details.description}}</td>
+                        <td>{{item.details.staff}}</td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane" id="settings">
+                <table class="table table-hover">
+                  <thead class="text-primary">
+                  <th>Created</th>
+                  <th>Subject</th>
+                  <th>Description</th>
+                  <th>Staff</th>
+                  <th>Notes</th>
+                  </thead>
+                  <tbody>
+                  <ng-container *ngFor="let item of list | async">
+                    <ng-container *ngIf="item.details.status == 'done'">
+                      <tr>
+                        <td>{{item.created.toDate() | date:'MM/dd/yyyy'}}</td>
+                        <td>{{item.details.subject}}</td>
+                        <td>{{item.details.description}}</td>
+                        <td>{{item.details.staff}}</td>
+                        <td>{{item.details.notes}}</td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

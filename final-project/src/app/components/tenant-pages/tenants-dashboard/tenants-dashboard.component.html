@@ -26,6 +26,7 @@
               </ng-container>
               </tbody>
             </table>
+            <button mat-raised-button type="button" class="btn btn-success pull-right" >Create New Message</button>
           </div>
         </div>
       </div>
@@ -45,7 +46,7 @@
               </thead>
               <tbody>
               <ng-container *ngFor="let x of Object.keys(neighbors)">
-                <tr>
+                <tr id="neighbors" (click)="openNeighborDialog(neighbors[x].first_name, neighbors[x].last_name, neighbors[x].room, neighbors[x].photo)">
                   <td><img src="{{neighbors[x].photo}}" alt="Photo" width="50" height="50"></td>
                   <td>{{neighbors[x].first_name}}</td>
                   <td>{{neighbors[x].last_name}}</td>
@@ -79,7 +80,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="createMaintenanceRequest()">Send Request</button>
+              <button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="createMaintenanceRequest()">Send Request</button>
               <div class="clearfix"></div>
             </form>
             <label class="error">{{ errorMessage }}</label>
