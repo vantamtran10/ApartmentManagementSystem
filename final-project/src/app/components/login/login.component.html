@@ -6,7 +6,7 @@
           <div class="container">
             <div class="row">
               <div class="col-lg-10 col-xl-7 mx-auto">
-                <h1 class="display-4" style="text-align: center">Hershey Heights Apartments</h1>
+                <h1 class="display-4" style="text-align: center">Hien Heights Apartments</h1>
                 <p class="text-muted mb-4" style="text-align: center">Apartment management system login</p>
                 <form [formGroup]="form">
                   <div class="form-group mb-3">
@@ -23,7 +23,6 @@
                   <ng-template #signout><button type="button" (click)="tryLogout()" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign Out</button></ng-template>
                   <label class="error">{{ errorMessage }}</label>
                   <label class="success">{{ successMessage }}</label>
-                  <p>Test login - tenant@test.com:password123</p>
                 </form>
               </div>
             </div>
