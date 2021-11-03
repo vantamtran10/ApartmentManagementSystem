@@ -50,6 +50,13 @@ export class TenantsDashboardComponent implements OnInit {
     });
   }
 
+  openNeighborDialog(first_name: string, last_name: string, room: number, photo: string){
+    const dialogRef = this.dialog.open(DialogNeighbor, {
+      width: '15vw',
+      data: {first_name: first_name, last_name: last_name, room: room, photo: photo}
+    });
+  }
+
 
 }
 
@@ -104,6 +111,18 @@ export class DialogReplyMessage {
       this.messageDelivered = 'Message sent successfully';
       this.delay(3000).then(r => this.dialogRef.close());
     });
+  }
+
+}
+
+@Component({
+  selector: 'neighbor',
+  templateUrl: 'neighbor.html',
+})
+export class DialogNeighbor {
+  constructor(
+    public dialogRef: MatDialogRef<DialogReplyMessage>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
 }
