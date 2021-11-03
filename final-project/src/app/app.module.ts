@@ -30,6 +30,12 @@ import { MatSelectModule} from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
+
+
 AngularFireModule.initializeApp(environment.firebase);
 @NgModule({
   declarations: [
@@ -61,9 +67,14 @@ AngularFireModule.initializeApp(environment.firebase);
     MatTooltipModule,
     MatSelectModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatTableDataSource,
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
