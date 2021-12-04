@@ -6,7 +6,7 @@
   </a>
 
   <h3 align="center">Hien Heights Apartment Management System</h3><br>
-  <h3 align="center">https://finalproject-d2f5c.firebaseapp.com/</h3><br>
+  <h3 align="center"> https://finalproject-d2f5c.web.app</h3><br>
 
   <p align="center">
     An apartment management system for Hershey Heights
