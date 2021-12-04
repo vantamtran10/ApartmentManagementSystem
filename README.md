@@ -136,7 +136,7 @@ Manoah Mohan - mvm6427@psu.edu
 
 Micah Wenger - mzw5682@psu.edu
 
-Tam Tran - ...@psu.edu
+Tam Tran - tvt5337@psu.edu
 
 Project Link: [https://github.com/MManoah/CMPSC487-finalproject](https://github.com/MManoah/CMPSC487-finalproject)
 
