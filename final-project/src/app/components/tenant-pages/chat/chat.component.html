@@ -1,0 +1,69 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header card-header-danger">
+        <h4 class="card-title">Chat</h4>
+        <p class="card-category">Talk here</p>
+      </div>
+      <div class="card-body">
+        <section class="msger">
+          <header class="msger-header">
+            <div class="msger-header-title">
+              <i class="fas fa-comment-alt"></i> Apartment Chat
+            </div>
+            <div class="msger-header-options">
+              <span><i class="fas fa-cog"></i></span>
+            </div>
+          </header>
+
+          <main class="msger-chat">
+            <ng-container *ngFor="let x of msgs">
+              <ng-container *ngIf="x.name === queryService.userData.first_name + ' ' + this.queryService.userData.last_name; else other">
+                <div class="msg right-msg">
+                  <div
+                    class="msg-img"
+                    [ngStyle]="{'background-image': 'url(' + x.photo + ')'}"
+                  ></div>
+
+                  <div class="msg-bubble">
+                    <div class="msg-info">
+                      <div class="msg-info-name">{{queryService.userData.first_name}} {{queryService.userData.last_name}}</div>
+                      <div class="msg-info-time">{{x.time.toDate() | date:'M/d/yy, h:mm a'}}</div>
+                    </div>
+
+                    <div class="msg-text">
+                      {{x.message}}
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #other>
+                <div class="msg left-msg">
+                  <div
+                    class="msg-img"
+                    [ngStyle]="{'background-image': 'url(' + x.photo + ')'}"
+                  ></div>
+
+                  <div class="msg-bubble">
+                    <div class="msg-info">
+                      <div class="msg-info-name">{{x.name}}</div>
+                      <div class="msg-info-time">{{x.time.toDate() | date:'M/d/yy, h:mm a'}}</div>
+                    </div>
+
+                    <div class="msg-text">
+                      {{x.message}}
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-container>
+          </main>
+          <form class="msger-inputarea">
+            <input type="text" class="msger-input" placeholder="Enter your message...">
+            <button mat-raised-button type="submit" class="btn btn-success pull-right" (click)="sendMessage($event)">Send</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

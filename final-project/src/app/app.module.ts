@@ -1,7 +1,4 @@
-import { AddroomComponent } from './components/chatsystem/addroom/addroom.component';
-import { ChatComponent } from './components/chatsystem/chat/chat.component';
-import { ChatroomsComponent } from './components/chatsystem/chatrooms/chatrooms.component';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthService } from "./core/service/auth/auth.service";
 
@@ -24,7 +21,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatRippleModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -32,10 +29,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatSelectModule} from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
-
-import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 AngularFireModule.initializeApp(environment.firebase);
 @NgModule({
@@ -47,9 +40,6 @@ AngularFireModule.initializeApp(environment.firebase);
     NavbarComponent,
     FooterComponent,
     SidebarComponent,
-    ChatroomsComponent,
-    ChatComponent,
-    AddroomComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,16 +61,9 @@ AngularFireModule.initializeApp(environment.firebase);
     MatTooltipModule,
     MatSelectModule,
     MatDialogModule,
-    HttpClientModule,
-    MatTableModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
+    HttpClientModule
   ],
-  providers: [
-    AuthService,
-    DatePipe,
-  ],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  providers: [AuthService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
