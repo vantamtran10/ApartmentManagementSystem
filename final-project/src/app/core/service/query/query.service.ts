@@ -143,4 +143,28 @@ export class QueryService {
       });
     });
   }
+
+  USERChatMessage(){
+    return new Observable((observer: Observer<any>) => {
+      // @ts-ignore
+      this.firestore.collection('chat').get().subscribe(x => {
+        if (x.docs.length === 1){
+          // @ts-ignore
+          observer.next(x.docs[0].ref);
+        }
+      });
+    });
+  }
+
+  USERSendChatMessage(message: string){
+    this.firestore.collection('chat').get().subscribe(x => {
+      if (x.docs.length === 1){
+        // @ts-ignore
+        let m = x.docs[0].data()['messages'];
+        let name = `${this.userData.first_name} ${this.userData.last_name}`
+        m.push({'name': name, 'message': message, 'photo': this.userData.photo, 'time': new Date()})
+        x.docs[0].ref.update({'messages': m})
+      }
+    })
+  }
 }

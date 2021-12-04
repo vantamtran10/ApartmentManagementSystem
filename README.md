@@ -6,7 +6,7 @@
   </a>
 
   <h3 align="center">Hien Heights Apartment Management System</h3><br>
-  <h3 align="center">https://finalproject-d2f5c.firebaseapp.com/</h3><br>
+  <h3 align="center"> https://finalproject-d2f5c.web.app</h3><br>
 
   <p align="center">
     An apartment management system for Hershey Heights
@@ -36,10 +36,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Webpage Screenshot][product-screenshot]](https://example.com)
-
-This apartment management system simplifies the communication between landlords, tenants, and maintenance. The system will be web-based allowing multiple parties to log in. Landlords will be able to charge rent and update records. Maintenance will be able to see the current maintenance requests and update the requests as complete or in progress. Tenants will be able to file requests for maintenance, complaints, pay rent, and see 
-the various information about their specific room. Overall, this system will provide a desirable user experience for the landlords, tenants, and maintenance to easily manage and communicate with one another to fulfill each person’s needs.
+This apartment management system simplifies the communication between landlords, tenants, and maintenance.
+The system is web-based allowing multiple parties to log in. Landlords are able to charge rent and update records.
+Maintenance is able to see the current maintenance requests and update the requests as complete or in progress.
+Tenants are able to file requests for maintenance, complaints, pay rent, and see the various information about their specific room.
+Overall, this system will provide a desirable user experience for the landlords, tenants, and maintenance to easily manage and communicate with one another to fulfill each person’s needs.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -47,9 +48,10 @@ the various information about their specific room. Overall, this system will pro
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
 * [Angular](https://angular.io/)
+* [Firebase](https://firebase.google.com/)
+* [bootstrap](https://getbootstrap.com/)
+* [jquery](https://code.jquery.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -58,31 +60,18 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+After downloading the project files, open up a terminal
 
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/MManoah/CMPSC487-finalproject
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -92,28 +81,19 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Login as Landlord:
+- landlord@test.com
+- password123
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Login as Maintenence:
+- maintenence@test.com
+- password123
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Login as Tenant:
+- tenant@test.com, tenant2@test.com, tenant3@test.com
+- password123
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- LICENSE -->
@@ -136,12 +116,8 @@ Manoah Mohan - mvm6427@psu.edu
 
 Micah Wenger - mzw5682@psu.edu
 
-Tam Tran - ...@psu.edu
+Tam Tran - tvt5337@psu.edu
 
 Project Link: [https://github.com/MManoah/CMPSC487-finalproject](https://github.com/MManoah/CMPSC487-finalproject)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[product-screenshot]: screenshot.png
