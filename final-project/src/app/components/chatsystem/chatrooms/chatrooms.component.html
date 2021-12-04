@@ -9,7 +9,7 @@
             <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
           </div>
           <div class="button-row">
-            <button mat-flat-button color="primary" [routerLink]="['/addroom']"><mat-icon>add</mat-icon></button>
+              <a mat-flat-button color="primary" routerLink="/addroom" routerLinkActive="active">Add Room</a>
           </div>
           <div class="mat-elevation-z8">
             <table mat-table [dataSource]="rooms" class="example-table"
