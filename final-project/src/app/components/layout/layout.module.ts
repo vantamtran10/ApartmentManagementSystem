@@ -6,6 +6,7 @@ import {LayoutRoutes} from "./layout.routing";
 import { TenantsDashboardComponent } from "../tenant-pages/tenants-dashboard/tenants-dashboard.component";
 import { MaintenanceRequestsComponent } from "../tenant-pages/maintenance-requests/maintenance-requests.component";
 import { LandlordDashboardComponent } from "../landlord-pages/landlord-dashboard/landlord-dashboard.component";
+import {MaintenanceDashboardComponent} from "../maintenance-pages/maintenance-dashboard/maintenance-dashboard.component";
 import { ChatComponent } from "../tenant-pages/chat/chat.component";
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
@@ -31,7 +32,8 @@ import {MatSelectModule} from '@angular/material/select';
     TenantsDashboardComponent,
     MaintenanceRequestsComponent,
     ChatComponent,
-    LandlordDashboardComponent
+    LandlordDashboardComponent,
+    MaintenanceDashboardComponent
   ]
 })
 
