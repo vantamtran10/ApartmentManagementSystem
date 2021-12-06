@@ -19,13 +19,8 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-    </li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -69,7 +64,9 @@ After downloading the project files, open up a terminal
    ```sh
    git clone https://github.com/MManoah/CMPSC487-finalproject
    ```
-2. Install NPM packages
+2. If you don't have Node.js
+  - Download Here https://nodejs.org/en/download/
+3. Install NPM packages
    ```sh
    npm install
    ```
