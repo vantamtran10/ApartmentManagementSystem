@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AuthService} from "../auth/auth.service";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {Observable, Observer} from "rxjs";
+import {observable, Observable, Observer} from "rxjs";
+import {observeInsideAngular} from "@angular/fire";
 
 @Injectable({
   providedIn: 'root'
@@ -166,5 +167,38 @@ export class QueryService {
         x.docs[0].ref.update({'messages': m})
       }
     })
+  }
+
+  // Tam Tran add
+  COUNTMaintenanceRequests(){
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('maintenance-requests').get().subscribe(x => {
+          observer.next(x);
+      });
+    });
+  }
+
+  COUNTMaintenanceUsers(){
+    return new Observable((observer: Observer<any>) => {
+      // @ts-ignore
+      this.firestore.collection('maintenance').get().subscribe(x => {
+        observer.next(x);
+      });
+    });
+  }
+
+  getInfoUsers(): Observable<any[]> {
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('maintenance').get().subscribe(x => {
+
+        for (let i=0; i< x.docs.length; i++){
+          // @ts-ignore
+          this.firestore.collection('users', ref => ref.where('id', '==', `${x.docs[i].data().id}`)).get().subscribe( data => {
+            let result = data.docs[0].data();
+            observer.next(result);
+          });
+        }
+        });
+    });
   }
 }
