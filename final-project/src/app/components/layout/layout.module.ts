@@ -14,6 +14,9 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import {RoomsComponent} from "../landlord-pages/rooms/rooms.component";
+import {MaintenanceComponent} from "../landlord-pages/maintenance/maintenance.component";
+import {MaintenanceLogComponent} from "../landlord-pages/maintenance-log/maintenance-log.component";
 
 @NgModule({
   imports: [
@@ -33,7 +36,10 @@ import {MatSelectModule} from '@angular/material/select';
     MaintenanceRequestsComponent,
     ChatComponent,
     LandlordDashboardComponent,
-    MaintenanceDashboardComponent
+    MaintenanceDashboardComponent,
+    RoomsComponent,
+    MaintenanceComponent,
+    MaintenanceLogComponent
   ]
 })
 

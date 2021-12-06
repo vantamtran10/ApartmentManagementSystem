@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from "jquery";
 import {AuthService} from "../../core/service/auth/auth.service";
 import {QueryService} from "../../core/service/query/query.service";
+import {MaintenanceComponent} from "../landlord-pages/maintenance/maintenance.component";
+import {AuthGuard} from "../../core/guard/auth.guard";
 
 declare const $: any;
 declare interface RouteInfo {
@@ -15,8 +17,11 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
   { path: '/tenants', title: 'Dashboard',  icon: 'dashboard', class: '', group: 'tenants' },
   { path: '/landlords', title: 'Dashboard',  icon: 'dashboard', class: '', group: 'landlords' },
+  { path: '/rooms', title: 'Rooms',  icon: 'meeting_room', class: '', group: 'landlords' },
+  { path: '/maintenance-staff', title: 'Maintenance Staff',  icon:'group', class: '', group: 'landlords' },
   { path: '/maintenance', title: 'Dashboard',  icon: 'dashboard', class: '', group: 'maintenance' },
   { path: '/maintenance-requests', title: 'Maintenance Requests',  icon:'build', class: '', group: 'tenants' },
+  { path: '/maintenance-logs', title: 'Maintenance Logs',  icon:'build', class: '', group: 'landlords' },
   { path: '/chat', title: 'Chat',  icon:'chat_bubble', class: '', group: 'tenants' },
   { path: '/signout', title: 'Sign Out',  icon:'exit_to_app', group: 'signout', class: 'active-pro' },
 ];

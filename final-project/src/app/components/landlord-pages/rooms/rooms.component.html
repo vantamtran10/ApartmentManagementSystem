@@ -1,0 +1,33 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-header card-header-warning">
+            <h4 class="card-title">Rooms</h4>
+            <p class="card-category">All Rooms</p>
+          </div>
+          <div class="card-body table-responsive">
+            <table class="table table-hover">
+              <thead class="text-warning">
+              <th>Room</th>
+              <th>Floor</th>
+              <th>Building</th>
+              </thead>
+              <tbody>
+              <ng-container *ngFor="let x of rooms">
+                <tr id="rooms" >
+                  <td>{{x.room}}</td>
+                  <td>{{x.floor}}</td>
+                  <td>{{x.building}}</td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+            <button mat-raised-button type="button" class="btn btn-warning pull-right" >Add Room</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
