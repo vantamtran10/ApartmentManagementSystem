@@ -1,5 +1,5 @@
+import { ChatroomsComponent } from './../chatsystem/chatrooms/chatrooms.component';
 import { AddroomComponent } from './../chatsystem/addroom/addroom.component';
-import { ChatroomsComponent } from '../chatsystem/chatrooms/chatrooms.component';
 import { Routes } from '@angular/router';
 import { AuthGuard } from "../../core/guard/auth.guard";
 
@@ -12,5 +12,6 @@ export const LayoutRoutes: Routes = [
   { path: 'maintenance-requests', component: MaintenanceRequestsComponent, canActivate: [AuthGuard]},
   { path: 'chatrooms', component: ChatroomsComponent, canActivate: [AuthGuard]},
   { path: 'addroom', component: AddroomComponent, canActivate: [AuthGuard]},
-  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard]}
+  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
+  { path: 'chatroom/:roomid', component: ChatComponent },
 ];

@@ -1,0 +1,17 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+          <form #f="ngForm" (ngSubmit)="addRoom(f)">
+            <mat-form-field>
+              <input matInput type="text" name="roomName" id="roomName" ngModel>
+            </mat-form-field>
+            <button mat-flat-button color="primary" type ="submit">Submit</button>
+          </form>
+
+          <a mat-flat-button routerLink="/chatrooms">Back</a>
+
+      </div>
+    </div>
+  </div>
+</div>

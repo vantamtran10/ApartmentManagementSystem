@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthService } from "./core/service/auth/auth.service";
 
@@ -29,6 +29,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatSelectModule} from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
+import { AddroomComponent } from './components/chatsystem/addroom/addroom.component';
+import { ChatComponent } from './components/chatsystem/chat/chat.component';
+import { ChatroomsComponent } from './components/chatsystem/chatrooms/chatrooms.component';
+import { MatTableModule } from '@angular/material/table';
+
 
 AngularFireModule.initializeApp(environment.firebase);
 @NgModule({
@@ -40,6 +45,9 @@ AngularFireModule.initializeApp(environment.firebase);
     NavbarComponent,
     FooterComponent,
     SidebarComponent,
+    AddroomComponent,
+    ChatComponent,
+    ChatroomsComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,8 +69,10 @@ AngularFireModule.initializeApp(environment.firebase);
     MatTooltipModule,
     MatSelectModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AuthService],
   bootstrap: [AppComponent]
 })
