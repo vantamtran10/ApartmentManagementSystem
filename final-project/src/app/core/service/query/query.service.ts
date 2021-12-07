@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AuthService} from "../auth/auth.service";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {Observable, Observer} from "rxjs";
+import {observable, Observable, Observer} from "rxjs";
+import {observeInsideAngular} from "@angular/fire";
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,63 @@ export class QueryService {
     this.userData = JSON.parse(<string>localStorage.getItem('user'));
   }
 
+  LANDLORDGetCompletedMaintenanceRequestsForWeek(Sunday: object) {
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('maintenance-requests', ref => ref.where('created', '>=', Sunday)).get().subscribe(data => {
+        observer.next(data);
+      });
+    });
+  }
+
+  LANDLORDGetAllRooms(){
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('rooms', ref => ref.orderBy('room')).get().subscribe(data => {
+        observer.next(data);
+      });
+    });
+  }
+
+  LANDLORDGetAllMaintenanceStaff(){
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('users').get().subscribe(staff => {
+        let maintenance: unknown[] = [];
+        staff.docs.forEach(x => {
+          // @ts-ignore
+          if (x.data().type.parent.id === 'maintenance') maintenance.push(x.data());
+        })
+        observer.next(maintenance);
+      });
+    });
+  }
+
+  LANDLORDGetAllMaintenanceLog(){
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('maintenance-requests', ref => ref.orderBy('created', 'desc')).get().subscribe(logs => {
+        let d: unknown[] = [];
+        logs.docs.forEach(x => {
+          d.push(x.data());
+        })
+        observer.next(d);
+      });
+    });
+  }
+  // FIX(){
+  //   this.firestore.collection('rooms').get().subscribe(x => {
+  //     x.docs.forEach(doc => {
+  //       const d: any = doc.data();
+  //       this.firestore.collection('rooms').doc(doc.ref.id.replace(/\s/g,'')).set({
+  //         building: d.building,
+  //         floor: d.floor,
+  //         room: d.room,
+  //         tenants: d.tenants
+  //       })
+  //     })
+  //   });
+  // }
   TENANTGetNeighbors() {
     return new Observable((observer: Observer<any>) => {
-      let building = this.userData.type.building;
       let floor = this.userData.type.floor;
-      this.firestore.collection(`building${building}`, ref => ref.where('floor', '==', floor)).get()
+      this.firestore.collection('rooms', ref => ref.where('floor', '==', floor)).get()
         .subscribe(data => {
           for (const i of data.docs){
             // @ts-ignore
@@ -41,7 +94,7 @@ export class QueryService {
 
   TENANTCreateMaintenanceRequest(subject: string, description: string){
     return new Promise((resolve, reject) => {
-      this.firestore.collection(`building${this.userData.type.building}`, ref => ref.where('room', '==', this.userData.type.room)).get().subscribe(roomRef => {
+      this.firestore.collection('rooms', ref => ref.where('room', '==', this.userData.type.room)).get().subscribe(roomRef => {
         if (roomRef.docs.length == 1){
           this.firestore.collection(`tenants`, ref => ref.where('id', '==', this.userData.id)).get().subscribe(tenantRef => {
             if (tenantRef.docs.length == 1){
@@ -166,5 +219,38 @@ export class QueryService {
         x.docs[0].ref.update({'messages': m})
       }
     })
+  }
+
+  // Tam Tran add
+  COUNTMaintenanceRequests(){
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('maintenance-requests').get().subscribe(x => {
+          observer.next(x);
+      });
+    });
+  }
+
+  COUNTMaintenanceUsers(){
+    return new Observable((observer: Observer<any>) => {
+      // @ts-ignore
+      this.firestore.collection('maintenance').get().subscribe(x => {
+        observer.next(x);
+      });
+    });
+  }
+
+  getInfoUsers(): Observable<any[]> {
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('maintenance').get().subscribe(x => {
+
+        for (let i=0; i< x.docs.length; i++){
+          // @ts-ignore
+          this.firestore.collection('users', ref => ref.where('id', '==', `${x.docs[i].data().id}`)).get().subscribe( data => {
+            let result = data.docs[0].data();
+            observer.next(result);
+          });
+        }
+        });
+    });
   }
 }
