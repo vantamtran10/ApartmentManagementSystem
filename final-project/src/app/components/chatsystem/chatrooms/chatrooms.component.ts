@@ -49,11 +49,6 @@ export class ChatroomsComponent implements OnInit {
     this.isLoadingResults = false;
   }
 
-  // work-in-progress
-  //enterChatRoom(roomname: string) {
-  //  this.router.navigate(['chat']);
-  //}
-
   enterChatRoom(roomname: string) {
     this.router.navigate(['/chatroom', roomname]);
   }

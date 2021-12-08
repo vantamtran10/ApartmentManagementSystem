@@ -1,12 +1,15 @@
 .example-container {
   position: relative;
-  padding: 10px;
 }
 
 .example-table-container {
   position: relative;
   max-height: 400px;
   overflow: auto;
+}
+
+.mat-elevation-z8 {
+  margin: 20px;
 }
 
 table {
@@ -44,4 +47,16 @@ table {
 
 .mat-column-created {
   max-width: 124px;
+}
+
+.mat-row:hover .mat-cell {
+  border: 1.5px solid grey;
+  cursor: pointer;
+}
+
+.add-button {
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 0px;
 }

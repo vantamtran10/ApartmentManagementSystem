@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit {
                 var url = router.url;
                 this.roomname = url.slice(10,url.length);
                 this.dbref = firebase.database().ref('chats/');
-                firebase.database().ref('chats/').orderByChild("roomname").equalTo(this.roomname).limitToLast(20).on('value', resp => {
+                firebase.database().ref('chats/').orderByChild("roomname").equalTo(this.roomname).limitToLast(25).on('value', resp => {
                   this.chats = this.snapshotToArray(resp);
                   setTimeout(() => this.scrolltop = this.chatcontent.nativeElement.scrollHeight, 500);
                 });

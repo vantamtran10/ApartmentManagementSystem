@@ -63,20 +63,25 @@ footer.sticky-footer {
 
 .chat-message .right-bubble {
   position: relative;
-  background: #dcf8c6;
-  border-top-left-radius: .4em;
-  border-bottom-left-radius: .4em;
-  border-bottom-right-radius: .4em;
+  background: #293B5F;
+//  border-width: 2px;
+//  border-color: lightblue;
+  border-top-left-radius: .8em;
+  border-bottom-left-radius: .8em;
+  border-bottom-right-radius: .8em;
   padding: 5px 10px 10px;
   left: 15%;
+  color: whitesmoke;
+  box-shadow: 2px 2px 5px #666666;
 }
 
 .chat-message .right-bubble span.msg-name {
   font-size: 12px;
   font-weight: bold;
-  color: green;
+  color: whitesmoke;
 }
 .chat-message .right-bubble span.msg-date {
+  color: whitesmoke;
   font-size: 10px;
 }
 
@@ -88,7 +93,7 @@ footer.sticky-footer {
   width: 0;
   height: 0;
   border: 27px solid transparent;
-  border-left-color: #dcf8c6;
+  border-left-color: #293B5F;
   border-right: 0;
   border-top: 0;
   margin-top: -13.5px;
@@ -96,20 +101,23 @@ footer.sticky-footer {
 }
 .chat-message .left-bubble {
   position: relative;
-  background: lightblue;
+  background: #47597E;
   border-top-right-radius: .4em;
   border-bottom-left-radius: .4em;
   border-bottom-right-radius: .4em;
   padding: 5px 10px 10px;
   left: 5%;
+  color: whitesmoke;
+  box-shadow: 2px 2px 5px #666666;
 }
 .chat-message .left-bubble span.msg-name {
   font-size: 12px;
   font-weight: bold;
-  color: blue;
+  color: whitesmoke;
 }
 .chat-message .left-bubble span.msg-date {
   font-size: 10px;
+  color: whitesmoke;
 }
 .chat-message .left-bubble:after {
   content: '';
@@ -119,7 +127,7 @@ footer.sticky-footer {
   width: 0;
   height: 0;
   border: 27px solid transparent;
-  border-right-color: lightblue;
+  border-right-color: #47597E;
   border-left: 0;
   border-top: 0;
   margin-top: -13.5px;
@@ -135,7 +143,6 @@ footer.sticky-footer {
   font-size: 10px;
   font-style: italic;
   color: #fff;
-  text-shadow: 0px -1px 0px #222, 0px 1px 0px #aaa;
   height: 15px;
   left: 10%;
   right:10%;
@@ -154,7 +161,6 @@ footer.sticky-footer {
 
 .chat-content {
   height: 600px;
-
 }
 
 .main-content {
