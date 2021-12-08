@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AuthService} from "../auth/auth.service";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {observable, Observable, Observer} from "rxjs";
-import {observeInsideAngular} from "@angular/fire";
+import {Observable, Observer} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +10,73 @@ export class QueryService {
   userData: any;
   constructor(public authService: AuthService, public firestore: AngularFirestore) {
     this.userData = JSON.parse(<string>localStorage.getItem('user'));
+  }
+
+  LANDLORDAddRoom(building: number, room_num: number, floor: number){
+    return new Promise((resolve, reject) => {
+      this.firestore.collection('rooms').add({
+        building: building,
+        floor: floor,
+        room: room_num,
+        tenants: []
+      }).then(r => resolve('Room was added'))
+        .catch(e => reject('There was an error'))
+    });
+  }
+
+  LANDLORDAddTenant(tenantEmail: any, roomData: any){
+    return new Promise((resolve, reject) => {
+      this.firestore.collection('users', ref => ref.where('email', '==', tenantEmail)).get().subscribe(userSearch => {
+        if (userSearch.docs.length === 0) reject('User not found');
+        else{
+          // @ts-ignore
+          this.firestore.collection('tenants', ref => ref.where('id', '==', userSearch.docs[0].data().id)).get().subscribe(tenantSearch => {
+            if (tenantSearch.docs.length === 0) reject('User is not a Tenant');
+            else {
+              this.firestore.collection('rooms', ref => ref.where('room', '==', roomData.room)).get().subscribe(roomSearch => {
+                if (roomSearch.docs.length === 1){
+                  // @ts-ignore
+                  let t = roomSearch.docs[0].data().tenants;
+                  t.push(tenantSearch.docs[0].ref);
+                  // @ts-ignore
+                  roomSearch.docs[0].ref.update('tenants', t).then(r => resolve({message: 'Tenant was added', tenants: t}))
+                    .catch(e => reject('There was an error'));
+                } else {
+                  roomSearch.docs.forEach(x => {
+                    // @ts-ignore
+                    if (x.data().building === roomData.building && x.data().floor === roomData.floor){
+                      // @ts-ignore
+                      let t = x.data().tenants;
+                      t.push(tenantSearch.docs[0].ref);
+                      // @ts-ignore
+                      x.ref.update('tenants', t).then(r => resolve({message: 'Tenant was added', tenants: t}))
+                        .catch(e => reject('There was an error'));
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
+    });
+  }
+
+  LANDLORDDeleteRoom(deletion: any){
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('rooms', ref => ref.where('room', '==', deletion.room)).get().subscribe(roomSearch => {
+        if (roomSearch.docs.length === 1){
+          roomSearch.docs[0].ref.delete();
+        } else {
+          roomSearch.docs.forEach(x => {
+            // @ts-ignore
+            if (x.data().building === deletion.building && x.data().floor === deletion.floor){
+              x.ref.delete();
+            }
+          })
+        }
+      })
+    });
   }
 
   LANDLORDGetCompletedMaintenanceRequestsForWeek(Sunday: object) {
@@ -23,9 +89,19 @@ export class QueryService {
 
   LANDLORDGetAllRooms(){
     return new Observable((observer: Observer<any>) => {
-      this.firestore.collection('rooms', ref => ref.orderBy('room')).get().subscribe(data => {
-        observer.next(data);
-      });
+      observer.next(this.firestore.collection('rooms', ref => ref.orderBy('room')));
+    });
+  }
+
+  LANDLORDUniqueBuildings(){
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('rooms').get().subscribe(x => {
+        let a: unknown[] = [];
+        x.docs.forEach(element => {
+          a.push(element.data());
+        })
+        observer.next([...new Set(a.map((item: any) => item.building))]);
+      })
     });
   }
 
@@ -42,6 +118,43 @@ export class QueryService {
     });
   }
 
+  LANDLORDRemoveTenantFromRoom(tenantRef: any, roomInfo: any){
+    return new Promise((resolve, reject) => {
+      this.firestore.collection('rooms', ref => ref.where('room', '==', roomInfo.room)).get().subscribe(roomSearch => {
+        if (roomSearch.docs.length === 1){
+          // @ts-ignore
+          let t = roomSearch.docs[0].data().tenants;
+          t = t.filter((item: any) => item.id !== tenantRef.id);
+          // @ts-ignore
+          roomSearch.docs[0].ref.update('tenants', t).then(r => resolve(t))
+            .catch(e => reject('There was an error'));
+        } else {
+          roomSearch.docs.forEach(x => {
+            // @ts-ignore
+            if (x.data().building === roomInfo.building && x.data().floor === roomInfo.floor){
+              // @ts-ignore
+              let t = x.data().tenants;
+              t = t.filter((item: any) => item.id !== tenantRef.id);
+              // @ts-ignore
+              x.ref.update('tenants', t).then(r => resolve(t))
+                .catch(e => reject('There was an error'));
+            }
+          })
+        }
+      })
+    });
+  }
+
+  LANDLORDSearchUserByID(id: any){
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('users', ref => ref.where('id', '==', id)).get().subscribe(x => {
+        if (x.docs.length === 1){
+          observer.next(x.docs[0].data());
+        }
+      });
+    });
+  }
+
   LANDLORDGetAllMaintenanceLog(){
     return new Observable((observer: Observer<any>) => {
       this.firestore.collection('maintenance-requests', ref => ref.orderBy('created', 'desc')).get().subscribe(logs => {
@@ -53,19 +166,7 @@ export class QueryService {
       });
     });
   }
-  // FIX(){
-  //   this.firestore.collection('rooms').get().subscribe(x => {
-  //     x.docs.forEach(doc => {
-  //       const d: any = doc.data();
-  //       this.firestore.collection('rooms').doc(doc.ref.id.replace(/\s/g,'')).set({
-  //         building: d.building,
-  //         floor: d.floor,
-  //         room: d.room,
-  //         tenants: d.tenants
-  //       })
-  //     })
-  //   });
-  // }
+
   TENANTGetNeighbors() {
     return new Observable((observer: Observer<any>) => {
       let floor = this.userData.type.floor;

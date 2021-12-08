@@ -8,23 +8,41 @@
             <p class="card-category">All Rooms</p>
           </div>
           <div class="card-body table-responsive">
+            <mat-form-field appearance="standard">
+              <mat-label>Search by Room Number</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 4" #input>
+            </mat-form-field>
             <table class="table table-hover">
               <thead class="text-warning">
               <th>Room</th>
               <th>Floor</th>
               <th>Building</th>
+              <th></th>
               </thead>
               <tbody>
-              <ng-container *ngFor="let x of rooms">
-                <tr id="rooms" >
-                  <td>{{x.room}}</td>
-                  <td>{{x.floor}}</td>
-                  <td>{{x.building}}</td>
-                </tr>
+              <ng-container *ngIf="input.value.length === 0; else filtered">
+                <ng-container *ngFor="let x of rooms | async">
+                  <tr id="rooms">
+                    <td (click)="openRoomInfoDialog(x)">{{x.room}}</td>
+                    <td (click)="openRoomInfoDialog(x)">{{x.floor}}</td>
+                    <td (click)="openRoomInfoDialog(x)">{{x.building}}</td>
+                    <td><button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="deleteRoom(x)">Delete Room</button></td>
+                  </tr>
+                </ng-container>
               </ng-container>
+              <ng-template #filtered>
+                <ng-container *ngFor="let x of filteredResult">
+                  <tr id="filtered">
+                    <td (click)="openRoomInfoDialog(x)">{{x.room}}</td>
+                    <td (click)="openRoomInfoDialog(x)">{{x.floor}}</td>
+                    <td (click)="openRoomInfoDialog(x)">{{x.building}}</td>
+                    <td (click)="openRoomInfoDialog(x)"><button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="deleteRoom(x)">Delete Room</button></td>
+                  </tr>
+                </ng-container>
+              </ng-template>
               </tbody>
             </table>
-            <button mat-raised-button type="button" class="btn btn-warning pull-right" >Add Room</button>
+            <button mat-raised-button type="button" class="btn btn-warning pull-right" (click)="openDialog()">Add Room</button>
           </div>
         </div>
       </div>

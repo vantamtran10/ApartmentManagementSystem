@@ -113,7 +113,7 @@ export class DialogReplyMessage {
     let message = document.getElementById("message").value
     this.queryService.USERSendMessage(this.data.fromID, `${message}\n------------\n${this.data.time} ${this.data.from}: ${this.data.message}`, `RE: ${this.data.subject}`).then(r => {
       this.messageDelivered = 'Message sent successfully';
-      this.delay(3000).then(r => this.dialogRef.close());
+      this.delay(1000).then(r => this.dialogRef.close());
     });
   }
 
