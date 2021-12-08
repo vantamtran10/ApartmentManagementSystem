@@ -11,6 +11,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog
 export class TenantsDashboardComponent implements OnInit {
   neighbors: any;
   messages: any;
+  filteredMessages: any;
   Object = Object;
   subject = new FormControl('');
   description = new FormControl('');
@@ -41,6 +42,17 @@ export class TenantsDashboardComponent implements OnInit {
       if (result !== undefined){
       }
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if (filterValue !== "") {
+      this.filteredMessages = this.messages.filter((t: any) => {
+        return (t.from.toLowerCase().includes(filterValue.trim().toLowerCase()) ||
+          t.subject.toLowerCase().includes(filterValue.trim().toLowerCase()) ||
+          t.message.toLowerCase().includes(filterValue.trim().toLowerCase()))
+      });
+    }
   }
 
   createMessageToNeighbor(first_name: string, last_name: string, email: string): void{

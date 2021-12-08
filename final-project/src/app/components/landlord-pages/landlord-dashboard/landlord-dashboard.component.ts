@@ -17,7 +17,7 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class LandlordDashboardComponent implements OnInit {
   messages: any;
-
+  filteredMessages: any;
   constructor(public queryService: QueryService, public dialog: MatDialog) {
   }
 
@@ -60,6 +60,17 @@ export class LandlordDashboardComponent implements OnInit {
       }
       var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if (filterValue !== "") {
+      this.filteredMessages = this.messages.filter((t: any) => {
+        return (t.from.toLowerCase().includes(filterValue.trim().toLowerCase()) ||
+          t.subject.toLowerCase().includes(filterValue.trim().toLowerCase()) ||
+          t.message.toLowerCase().includes(filterValue.trim().toLowerCase()))
+      });
+    }
   }
 
   openDialog(email: string, from: string, subject: string, message: string, time: string, fromID: string, messageID: number): void {

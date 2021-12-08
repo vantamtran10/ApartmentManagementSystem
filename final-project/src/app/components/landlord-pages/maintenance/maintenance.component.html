@@ -27,7 +27,7 @@
                     <td><img src="{{x.photo}}" alt="Photo" width="50" height="50"></td>
                     <td>{{x.first_name}}</td>
                     <td>{{x.last_name}}</td>
-                    <td>{{x.status}}</td>
+                    <td>{{x.status}} <span *ngIf="x.status.toLowerCase() == 'available'" class="green"></span><span *ngIf="x.status.toLowerCase() == 'progress'" class="yellow"></span><span *ngIf="x.status.toLowerCase() == 'busy'" class="red"></span> </td>
                     <td><button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="removeStaff(x.id)">Remove Staff</button></td>
                   </tr>
                 </ng-container>
