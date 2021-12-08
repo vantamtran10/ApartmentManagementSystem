@@ -16,6 +16,18 @@ table {
   width: 100%;
 }
 
+.mat-header-cell {
+  background-color: rgb(52,58,64);
+  border-top-left-radius: 0.2em;
+  border-top-right-radius: 0.2em;
+}
+
+#roomname {
+  font: 500;
+  font-size:125%;
+  color: white;
+}
+
 .button-row {
   margin: 10px 0;
 }
@@ -50,7 +62,10 @@ table {
 }
 
 .mat-row:hover .mat-cell {
-  border: 1.5px solid grey;
+  border: 2px solid #343A40;
+  border-bottom:  3px solid #343A40;
+  border-top:  3px solid #343A40;
+
   cursor: pointer;
 }
 
