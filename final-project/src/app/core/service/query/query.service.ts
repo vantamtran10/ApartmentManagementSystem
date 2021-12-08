@@ -159,7 +159,6 @@ export class QueryService {
 
   LANDLORDRemoveMaintenanceStaff(id: string){
     return new Promise((resolve, reject) => {
-      console.log(id);
       this.firestore.collection('maintenance', ref => ref.where('id', '==', id)).get().subscribe(staffSearch => {
         if (staffSearch.docs.length !== 0){
           staffSearch.docs[0].ref.delete();
@@ -257,6 +256,14 @@ export class QueryService {
     });
   }
 
+  USERMessageObservable(){
+    return new Observable((observer: Observer<any>) => {
+      this.firestore.collection('messages', ref => ref.where('id', '==', `${this.userData.id}`)).get().subscribe(x => {
+        observer.next(x.docs[0].ref);
+      })
+    });
+  }
+
   USERGetMessages(){
     return new Observable((observer: Observer<any>) => {
       this.firestore.collection('messages', ref => ref.where('id', '==', `${this.userData.id}`)).get().subscribe(messages => {
@@ -272,6 +279,7 @@ export class QueryService {
             messages.docs[0].data().incoming[i].from.get().then((x: any) => {
               temp['from'] = `${x.data().first_name} ${x.data().last_name}`;
               temp['fromID'] = x.data().id;
+              temp['email'] = x.data().email;
               temp['messageID'] = i;
               incoming.push(temp);
             });
@@ -294,6 +302,18 @@ export class QueryService {
           reject();
         }
       });
+    });
+  }
+
+  USERGetUserIDByEmail(email: string){
+    return new Promise((resolve, reject) => {
+      this.firestore.collection('users', ref => ref.where('email', '==', email)).get().subscribe(userSearch => {
+        if (userSearch.docs.length == 0) reject('User was not found');
+        else {
+          // @ts-ignore
+          resolve(userSearch.docs[0].data().id);
+        }
+      })
     });
   }
 

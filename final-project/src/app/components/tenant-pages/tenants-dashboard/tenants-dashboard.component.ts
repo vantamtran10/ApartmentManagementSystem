@@ -23,8 +23,30 @@ export class TenantsDashboardComponent implements OnInit {
     this.queryService.TENANTGetNeighbors().subscribe(data => {
       this.neighbors[data.id] = data;
     });
-    this.queryService.USERGetMessages().subscribe(x => {
-      this.messages = x;
+    this.queryService.USERMessageObservable().subscribe(a => {
+      a.onSnapshot((change: any) => {
+        this.queryService.USERGetMessages().subscribe(x => {
+          this.messages = x;
+        });
+      });
+    })
+  }
+
+  createNewMessage(): void{
+    const dialogRef = this.dialog.open(DialogNewMessage, {
+      width: '30vw',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined){
+      }
+    });
+  }
+
+  createMessageToNeighbor(first_name: string, last_name: string, email: string): void{
+    const dialogRef = this.dialog.open(DialogNeighborMessage, {
+      width: '30vw',
+      data: {email: email, first_name: first_name, last_name: last_name}
     });
   }
 
@@ -39,10 +61,21 @@ export class TenantsDashboardComponent implements OnInit {
     });
   }
 
-  openDialog(from: string, subject: string, message: string, time: string, fromID: string, messageID: number): void {
+  openDialogReply(email: string, from: string, subject: string, message: string, time: string, fromID: string, messageID: number): void {
+    const dialogRef = this.dialog.open(DialogReplyMessage, {
+      width: '30vw',
+      data: {email: email, from: from, subject: subject, message: message, time: time, fromID: fromID, messageID: messageID}
+    });
+  }
+
+  deleteMessage(messageID: number){
+    this.queryService.USERDeleteMessage(messageID);
+  }
+
+  openDialog(email: string, from: string, subject: string, message: string, time: string, fromID: string, messageID: number): void {
     const dialogRef = this.dialog.open(DialogReadMessage, {
       width: '30vw',
-      data: {from: from, subject: subject, message: message, time: time, fromID: fromID, messageID: messageID}
+      data: {email: email, from: from, subject: subject, message: message, time: time, fromID: fromID, messageID: messageID}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -87,10 +120,6 @@ export class DialogReadMessage {
       width: '30vw',
       data: this.data
     });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //
-    // });
   }
 
 }
@@ -129,4 +158,80 @@ export class DialogNeighbor {
     @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
+}
+
+@Component({
+  selector: 'new-message',
+  templateUrl: 'new-message.html',
+})
+export class DialogNewMessage {
+  email: any
+  message: any
+  success: any;
+  error: any;
+  subject: any;
+  constructor(
+    public dialogRef: MatDialogRef<DialogNewMessage>,
+    public queryService: QueryService,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.message = "";
+    this.email = "";
+    this.subject = "";
+  }
+
+
+  validateEmail(mail: any)
+  {
+    return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
+
+  }
+  delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+  sendEmail(email: string, message: string, subject: string){
+    this.queryService.USERGetUserIDByEmail(email).then((id: any) => {
+      this.queryService.USERSendMessage(id, message, subject).then(r => {
+        this.success = "Message was sent";
+        this.error = "";
+        this.delay(1000).then(r => this.dialogRef.close());
+      });
+    }).catch(error => {
+      this.error = error;
+      this.success = "";
+    })
+  }
+}
+
+@Component({
+  selector: 'neighbor-message',
+  templateUrl: 'neighbor-message.html',
+})
+export class DialogNeighborMessage {
+  message: any
+  success: any;
+  error: any;
+  subject: any;
+  constructor(
+    public dialogRef: MatDialogRef<DialogNewMessage>,
+    public queryService: QueryService,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.message = "";
+    this.subject = "";
+  }
+
+
+  delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
+  sendEmail(message: string){
+    this.queryService.USERGetUserIDByEmail(this.data.email).then((id: any) => {
+      this.queryService.USERSendMessage(id, message, this.subject).then(r => {
+        this.success = "Message was sent";
+        this.error = "";
+        this.delay(1000).then(r => this.dialogRef.close());
+      });
+    }).catch(error => {
+      this.error = error;
+      this.success = "";
+    })
+  }
 }

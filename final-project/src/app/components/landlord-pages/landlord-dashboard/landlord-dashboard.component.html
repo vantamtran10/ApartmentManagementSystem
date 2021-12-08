@@ -15,9 +15,22 @@
               <th>Message</th>
               <th>Received</th>
               </thead>
-
+              <tbody>
+              <ng-container *ngFor="let x of messages">
+                <tr id="messages">
+                  <td (click)="openDialog(x.email, x.from, x.subject, x.message, x.time, x.fromID, x.messageID)">{{x.from}}</td>
+                  <td (click)="openDialog(x.email, x.from, x.subject, x.message, x.time, x.fromID, x.messageID)">{{x.subject.substring(0, 10)}}</td>
+                  <td (click)="openDialog(x.email, x.from, x.subject, x.message, x.time, x.fromID, x.messageID)">{{x.message.substring(0, 10)}}...</td>
+                  <td (click)="openDialog(x.email, x.from, x.subject, x.message, x.time, x.fromID, x.messageID)">{{x.time}}</td>
+                  <td>
+                    <button mat-raised-button type="button" class="btn btn-success pull-right" (click)="openDialogReply(x.email, x.from, x.subject, x.message, x.time, x.fromID, x.messageID)">Reply</button>
+                    <button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="deleteMessage(x.messageID)">Delete</button>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
             </table>
-            <button mat-raised-button type="button" class="btn btn-success pull-right" >Create New Message</button>
+            <button mat-raised-button type="button" class="btn btn-success pull-right" (click)="createNewMessage()">Create New Message</button>
           </div>
         </div>
       </div>

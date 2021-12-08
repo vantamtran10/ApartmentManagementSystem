@@ -3,7 +3,11 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {LayoutRoutes} from "./layout.routing";
-import { TenantsDashboardComponent } from "../tenant-pages/tenants-dashboard/tenants-dashboard.component";
+import {
+  DialogNeighborMessage,
+  DialogNewMessage,
+  TenantsDashboardComponent
+} from "../tenant-pages/tenants-dashboard/tenants-dashboard.component";
 import { MaintenanceRequestsComponent } from "../tenant-pages/maintenance-requests/maintenance-requests.component";
 import { LandlordDashboardComponent } from "../landlord-pages/landlord-dashboard/landlord-dashboard.component";
 import {MaintenanceDashboardComponent} from "../maintenance-pages/maintenance-dashboard/maintenance-dashboard.component";
@@ -43,7 +47,9 @@ import {MaintenanceLogComponent} from "../landlord-pages/maintenance-log/mainten
     DialogAddRoom,
     DialogViewRoom,
     DialogAddTenant,
-    DialogAddStaff
+    DialogAddStaff,
+    DialogNewMessage,
+    DialogNeighborMessage
   ]
 })
 
