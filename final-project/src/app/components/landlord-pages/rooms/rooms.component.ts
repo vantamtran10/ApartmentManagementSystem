@@ -25,7 +25,9 @@ export class RoomsComponent implements OnInit {
     if (filterValue !== ""){
       this.rooms?.subscribe(x => {
         this.filteredResult = x;
-        this.filteredResult = this.filteredResult.filter((t: any) => t.room.toString().includes(filterValue.trim().toLowerCase()));
+        this.filteredResult = this.filteredResult.filter((t: any) => {
+          return (t.room.toString().includes(filterValue.trim().toLowerCase()))
+        });
       })
     } else this.filteredResult = [];
   }

@@ -8,6 +8,7 @@ import {QueryService} from "../../../core/service/query/query.service";
 })
 export class MaintenanceLogComponent implements OnInit {
   logs: any;
+  logsFiltered: any;
   constructor(public queryService: QueryService) { }
 
   ngOnInit(): void {
@@ -15,14 +16,27 @@ export class MaintenanceLogComponent implements OnInit {
       this.logs = [];
       x.forEach((data: any) => {
         let t = data;
-        console.log(t);
         t.room.get().then((y: any) => {
-          t.room = y.data().room;
+          if (y.exists) t.room = y.data().room;
+          else t.room = 'Room no longer exists';
           this.logs.push(t);
         });
       })
     })
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if (filterValue !== "") {
+      this.logsFiltered = this.logs.filter((t: any) => {
+        return t.details.subject.toLowerCase().includes(filterValue.trim().toLowerCase()) ||
+          t.details.description.toLowerCase().includes(filterValue.trim().toLowerCase()) ||
+          t.room.toString().toLowerCase().includes(filterValue.trim().toLowerCase()) ||
+          t.details.status.toLowerCase().includes(filterValue.trim().toLowerCase());
+
+      });
+    }
+  }
+
   capitalizeFirstLetter(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }

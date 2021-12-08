@@ -24,6 +24,25 @@ export class QueryService {
     });
   }
 
+  LANDLORDAddMaintenanceStaff(email: string){
+    return new Promise((resolve, reject) => {
+      this.firestore.collection('users', ref => ref.where('email', '==', email)).get().subscribe(userSearch => {
+        if (userSearch.docs.length === 0) reject('User not found');
+        else {
+          // @ts-ignore
+          if (userSearch.docs[0].data().type.parent.id !== 'maintenance') reject('User is not maintenance staff');
+          else{
+            this.firestore.collection('maintenance').add({
+              // @ts-ignore
+              id: userSearch.docs[0].data().id
+            }).then(r => resolve('Staff was added'))
+              .catch(e => reject('There was an error'))
+          }
+        }
+      })
+    });
+  }
+
   LANDLORDAddTenant(tenantEmail: any, roomData: any){
     return new Promise((resolve, reject) => {
       this.firestore.collection('users', ref => ref.where('email', '==', tenantEmail)).get().subscribe(userSearch => {
@@ -107,14 +126,7 @@ export class QueryService {
 
   LANDLORDGetAllMaintenanceStaff(){
     return new Observable((observer: Observer<any>) => {
-      this.firestore.collection('users').get().subscribe(staff => {
-        let maintenance: unknown[] = [];
-        staff.docs.forEach(x => {
-          // @ts-ignore
-          if (x.data().type.parent.id === 'maintenance') maintenance.push(x.data());
-        })
-        observer.next(maintenance);
-      });
+      observer.next(this.firestore.collection('maintenance'));
     });
   }
 
@@ -140,6 +152,17 @@ export class QueryService {
                 .catch(e => reject('There was an error'));
             }
           })
+        }
+      })
+    });
+  }
+
+  LANDLORDRemoveMaintenanceStaff(id: string){
+    return new Promise((resolve, reject) => {
+      console.log(id);
+      this.firestore.collection('maintenance', ref => ref.where('id', '==', id)).get().subscribe(staffSearch => {
+        if (staffSearch.docs.length !== 0){
+          staffSearch.docs[0].ref.delete();
         }
       })
     });

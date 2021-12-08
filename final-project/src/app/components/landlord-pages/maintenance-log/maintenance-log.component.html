@@ -8,6 +8,10 @@
             <p class="card-category">All requests</p>
           </div>
           <div class="card-body table-responsive">
+            <mat-form-field appearance="standard">
+              <mat-label>Search</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Sink is leaking" #input>
+            </mat-form-field>
             <table class="table table-hover">
               <thead class="text-success">
               <th>Created</th>
@@ -17,15 +21,28 @@
               <th>Status</th>
               </thead>
               <tbody>
-              <ng-container *ngFor="let x of logs">
-                <tr id="rooms" >
-                  <td>{{x.created.toDate() | date:'MM/dd/yyyy'}}</td>
-                  <td>{{x.details.subject}}</td>
-                  <td>{{x.details.description}}</td>
-                  <td>{{x.room}}</td>
-                  <td>{{capitalizeFirstLetter(x.details.status)}}</td>
-                </tr>
+              <ng-container *ngIf="input.value === ''; else filtered">
+                <ng-container *ngFor="let x of logs">
+                  <tr id="logs" >
+                    <td>{{x.created.toDate() | date:'MM/dd/yyyy'}}</td>
+                    <td>{{x.details.subject}}</td>
+                    <td>{{x.details.description}}</td>
+                    <td>{{x.room}}</td>
+                    <td>{{capitalizeFirstLetter(x.details.status)}}</td>
+                  </tr>
+                </ng-container>
               </ng-container>
+              <ng-template #filtered>
+                <ng-container *ngFor="let x of logsFiltered">
+                  <tr id="logsFiltered" >
+                    <td>{{x.created.toDate() | date:'MM/dd/yyyy'}}</td>
+                    <td>{{x.details.subject}}</td>
+                    <td>{{x.details.description}}</td>
+                    <td>{{x.room}}</td>
+                    <td>{{capitalizeFirstLetter(x.details.status)}}</td>
+                  </tr>
+                </ng-container>
+              </ng-template>
               </tbody>
             </table>
           </div>

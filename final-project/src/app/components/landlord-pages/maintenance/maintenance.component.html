@@ -8,24 +8,44 @@
             <p class="card-category">All Maintenance Staff</p>
           </div>
           <div class="card-body table-responsive">
+            <mat-form-field appearance="standard">
+              <mat-label>Search</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Bob" #input>
+            </mat-form-field>
             <table class="table table-hover">
               <thead class="text-primary">
+              <th></th>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Status</th>
-              <th>Photo</th>
+              <th></th>
               </thead>
               <tbody>
-              <ng-container *ngFor="let x of staff">
-                <tr id="rooms" >
-                  <td>{{x.first_name}}</td>
-                  <td>{{x.last_name}}</td>
-                  <td>{{x.status}}</td>
-                  <td><img src="{{x.photo}}" alt="Photo" width="50" height="50"></td>
-                </tr>
+              <ng-container *ngIf="input.value === ''; else staffFilter">
+                <ng-container *ngFor="let x of staff">
+                  <tr id="staff">
+                    <td><img src="{{x.photo}}" alt="Photo" width="50" height="50"></td>
+                    <td>{{x.first_name}}</td>
+                    <td>{{x.last_name}}</td>
+                    <td>{{x.status}}</td>
+                    <td><button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="removeStaff(x.id)">Remove Staff</button></td>
+                  </tr>
+                </ng-container>
               </ng-container>
+              <ng-template #staffFilter>
+                <ng-container *ngFor="let x of staffFiltered">
+                  <tr id="staffFiltered">
+                    <td><img src="{{x.photo}}" alt="Photo" width="50" height="50"></td>
+                    <td>{{x.first_name}}</td>
+                    <td>{{x.last_name}}</td>
+                    <td>{{x.status}}</td>
+                    <td><button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="removeStaff(x.id)">Remove Staff</button></td>
+                  </tr>
+                </ng-container>
+              </ng-template>
               </tbody>
             </table>
+            <button mat-raised-button type="button" class="btn btn-primary pull-right" (click)="openStaffAddDialog()">Add Staff</button>
           </div>
         </div>
       </div>

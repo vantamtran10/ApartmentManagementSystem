@@ -15,7 +15,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {DialogAddRoom, DialogAddTenant, DialogViewRoom, RoomsComponent} from "../landlord-pages/rooms/rooms.component";
-import {MaintenanceComponent} from "../landlord-pages/maintenance/maintenance.component";
+import {DialogAddStaff, MaintenanceComponent} from "../landlord-pages/maintenance/maintenance.component";
 import {MaintenanceLogComponent} from "../landlord-pages/maintenance-log/maintenance-log.component";
 
 @NgModule({
@@ -42,7 +42,8 @@ import {MaintenanceLogComponent} from "../landlord-pages/maintenance-log/mainten
     MaintenanceLogComponent,
     DialogAddRoom,
     DialogViewRoom,
-    DialogAddTenant
+    DialogAddTenant,
+    DialogAddStaff
   ]
 })
 
