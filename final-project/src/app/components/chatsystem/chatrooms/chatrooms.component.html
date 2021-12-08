@@ -17,7 +17,7 @@
             <table mat-table [dataSource]="rooms" matSort matSortActive="roomname" class="example-container" matSortDisableClear matSortDirection="asc">
               <!-- Room Name Column -->
               <ng-container matColumnDef="roomname">
-                <th mat-header-cell *matHeaderCellDef>Room Name</th>
+                <th mat-header-cell *matHeaderCellDef><div id="roomname">Room Name</div></th>
                 <td mat-cell *matCellDef="let room">{{room.roomname}}</td>
               </ng-container>
 
