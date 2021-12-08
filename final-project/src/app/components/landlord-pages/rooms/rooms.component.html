@@ -14,18 +14,18 @@
             </mat-form-field>
             <table class="table table-hover">
               <thead class="text-warning">
-              <th>Room</th>
-              <th>Floor</th>
               <th>Building</th>
+              <th>Floor</th>
+              <th>Room</th>
               <th></th>
               </thead>
               <tbody>
               <ng-container *ngIf="input.value.length === 0; else filtered">
                 <ng-container *ngFor="let x of rooms | async">
                   <tr id="rooms">
-                    <td (click)="openRoomInfoDialog(x)">{{x.room}}</td>
-                    <td (click)="openRoomInfoDialog(x)">{{x.floor}}</td>
                     <td (click)="openRoomInfoDialog(x)">{{x.building}}</td>
+                    <td (click)="openRoomInfoDialog(x)">{{x.floor}}</td>
+                    <td (click)="openRoomInfoDialog(x)">{{x.room}}</td>
                     <td><button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="deleteRoom(x)">Delete Room</button></td>
                   </tr>
                 </ng-container>
@@ -33,9 +33,9 @@
               <ng-template #filtered>
                 <ng-container *ngFor="let x of filteredResult">
                   <tr id="filtered">
-                    <td (click)="openRoomInfoDialog(x)">{{x.room}}</td>
-                    <td (click)="openRoomInfoDialog(x)">{{x.floor}}</td>
                     <td (click)="openRoomInfoDialog(x)">{{x.building}}</td>
+                    <td (click)="openRoomInfoDialog(x)">{{x.floor}}</td>
+                    <td (click)="openRoomInfoDialog(x)">{{x.room}}</td>
                     <td><button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="deleteRoom(x)">Delete Room</button></td>
                   </tr>
                 </ng-container>

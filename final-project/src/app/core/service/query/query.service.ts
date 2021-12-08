@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {AuthService} from "../auth/auth.service";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {Observable, Observer} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class QueryService {
   userData: any;
-  constructor(public authService: AuthService, public firestore: AngularFirestore) {
+  constructor(public authService: AuthService, public firestore: AngularFirestore, private http: HttpClient) {
     this.userData = JSON.parse(<string>localStorage.getItem('user'));
   }
 
@@ -108,7 +109,7 @@ export class QueryService {
 
   LANDLORDGetAllRooms(){
     return new Observable((observer: Observer<any>) => {
-      observer.next(this.firestore.collection('rooms', ref => ref.orderBy('room')));
+      observer.next(this.firestore.collection('rooms', ref => ref.orderBy('building')));
     });
   }
 
@@ -217,30 +218,35 @@ export class QueryService {
 
   TENANTCreateMaintenanceRequest(subject: string, description: string){
     return new Promise((resolve, reject) => {
-      this.firestore.collection('rooms', ref => ref.where('room', '==', this.userData.type.room)).get().subscribe(roomRef => {
-        if (roomRef.docs.length == 1){
-          this.firestore.collection(`tenants`, ref => ref.where('id', '==', this.userData.id)).get().subscribe(tenantRef => {
-            if (tenantRef.docs.length == 1){
-              this.firestore.collection('maintenance-requests').add({
-                created: new Date(),
-                room: roomRef.docs[0].ref,
-                tenant: tenantRef.docs[0].ref,
-                details: {
-                  subject: subject,
-                  description: description,
-                  status: 'open'
-                }
-              }).then(mRequestRef => {
-                // @ts-ignore
-                let a = tenantRef.docs[0].data().maintenance_requests;
-                a.push(mRequestRef);
-                tenantRef.docs[0].ref.update({'maintenance_requests': a});
-                resolve('Maintenance Request has been added!')
-              }).catch(e => reject('There was an error!'))
-            } else reject('There was an error')
-          });
+      this.firestore.collection('tenants', ref => ref.where('id', '==', this.userData.id)).get().subscribe(tenantRef => {
+        if (tenantRef.docs.length == 1){
+          // @ts-ignore
+          this.firestore.collection('rooms', ref => ref.where('room', '==', tenantRef.docs[0].data().room)).get().subscribe(roomRef => {
+            let go = true;
+            for (let i=0; i< roomRef.docs.length; i++){
+              // @ts-ignore
+              if (roomRef.docs[i].data().building == tenantRef.docs[0].data().building && roomRef.docs[i].data().floor == tenantRef.docs[0].data().floor && roomRef.docs[i].data().room == tenantRef.docs[0].data().room){
+                this.firestore.collection('maintenance-requests').add({
+                  created: new Date(),
+                  room: roomRef.docs[i].ref,
+                  tenant: tenantRef.docs[0].ref,
+                  details: {
+                    subject: subject,
+                    description: description,
+                    status: 'open'
+                  }
+                }).then(mRequestRef => {
+                  // @ts-ignore
+                  let a = tenantRef.docs[0].data().maintenance_requests;
+                  a.push(mRequestRef);
+                  tenantRef.docs[0].ref.update({'maintenance_requests': a});
+                  resolve('Maintenance Request has been added!')
+                }).catch(e => reject('There was an error!'))
+              }
+            }
+          })
         } else reject('There was an error!')
-      });
+      })
   });
   }
 

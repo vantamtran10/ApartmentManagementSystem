@@ -87,7 +87,8 @@ Login as Maintenence:
 - password123
 
 Login as Tenant:
-- tenant@test.com, tenant2@test.com, tenant3@test.com
+- bankhuc@hheights.com
+- see tenantlist.txt for more
 - password123
 
 <p align="right">(<a href="#top">back to top</a>)</p>

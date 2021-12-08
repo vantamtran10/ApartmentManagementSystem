@@ -26,7 +26,7 @@ export class RoomsComponent implements OnInit {
       this.rooms?.subscribe(x => {
         this.filteredResult = x;
         this.filteredResult = this.filteredResult.filter((t: any) => {
-          return (t.room.toString().includes(filterValue.trim().toLowerCase()))
+          return (t.room.toString() == filterValue.trim().toLowerCase())
         });
       })
     } else this.filteredResult = [];
