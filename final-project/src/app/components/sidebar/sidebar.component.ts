@@ -20,6 +20,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/maintenance', title: 'Dashboard',  icon: 'dashboard', class: '', group: 'maintenance' },
   { path: '/maintenance-requests', title: 'Maintenance Requests',  icon:'build', class: '', group: 'tenants' },
   { path: '/chatrooms', title: 'Chatrooms', icon:'chat_bubble', class: '', group: 'tenants' },
+  { path: '/chatrooms', title: 'Chatrooms', icon:'chat_bubble', class: '', group: 'landlords' },
   { path: '/maintenance-logs', title: 'Maintenance Logs',  icon:'build', class: '', group: 'landlords' },
   { path: '/signout', title: 'Sign Out',  icon:'exit_to_app', group: 'signout', class: 'active-pro' },
 ];
