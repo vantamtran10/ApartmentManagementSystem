@@ -79,7 +79,7 @@ After downloading the project files, open up a terminal
 ## Usage
 
 Login as Landlord:
-- landlord@test.com
+- johnsmith@hheights.com
 - password123
 
 Login as Maintenence:
