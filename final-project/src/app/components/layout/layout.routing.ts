@@ -18,6 +18,8 @@ export const LayoutRoutes: Routes = [
   { path: 'tenants', component: TenantsDashboardComponent, canActivate: [AuthGuard]},
   { path: 'maintenance-requests', component: MaintenanceRequestsComponent, canActivate: [AuthGuard]},
   { path: 'chatrooms', component: ChatroomsComponent, canActivate: [AuthGuard]},
+  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
+  { path: 'chatroom/:roomid', component: ChatComponent },
   { path: 'addroom', component: AddroomComponent, canActivate: [AuthGuard]},
   { path: 'landlords', component: LandlordDashboardComponent, canActivate: [AuthGuard]},
   { path: 'maintenance', component: MaintenanceDashboardComponent, canActivate: [AuthGuard]},

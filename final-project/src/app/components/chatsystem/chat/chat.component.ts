@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import firebase from 'firebase/compat/app';
 
 import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
@@ -32,23 +33,18 @@ export class ChatComponent implements OnInit {
   chatcontent!: ElementRef;
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private queryService: QueryService) {
+              private queryService: QueryService,
+              private datePipe: DatePipe) {
                 this.nickname = <string> this.queryService.userData.first_name + " " + this.queryService.userData.last_name;
                 var url = router.url;
                 this.roomname = url.slice(10,url.length);
                 this.dbref = firebase.database().ref('chats/');
-                firebase.database().ref('chats/').on('value', resp => {
+                firebase.database().ref('chats/').orderByChild("roomname").equalTo(this.roomname).limitToLast(20).on('value', resp => {
                   this.chats = this.snapshotToArray(resp);
                   setTimeout(() => this.scrolltop = this.chatcontent.nativeElement.scrollHeight, 500);
                 });
 
-                // filter chat for room
-                this.chats = this.chats.filter(function(item) {
-                  return item.roomname == router.url.slice(10, router.url.length);
-                }
-                );
   }
 
   snapshotToArray(snapshot: any) {
@@ -57,8 +53,7 @@ export class ChatComponent implements OnInit {
     snapshot.forEach((childSnapshot: any) => {
         const item = childSnapshot.val();
         item.key = childSnapshot.key;
-        if(item.roomname == this.roomname)
-          returnArr.push(item);
+        returnArr.push(item);
     });
 
     return returnArr;
@@ -75,6 +70,7 @@ export class ChatComponent implements OnInit {
     const chat = form;
     chat.roomname = this.roomname;
     chat.nickname = this.nickname;
+    chat.date = this.datePipe.transform(new Date(), 'medium');
     chat.type = 'message';
     const newMessage = firebase.database().ref('chats/').push();
     newMessage.set(chat);
