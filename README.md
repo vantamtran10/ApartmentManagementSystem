@@ -60,17 +60,21 @@ After downloading the project files, open up a terminal
 
 ### Installation
 
-1. Clone the repo
+1. Clone the repo (Use github Desktop for easier cloning)
    ```sh
    git clone https://github.com/MManoah/CMPSC487-finalproject
    ```
-2. If you don't have Node.js
-  - Download Here https://nodejs.org/en/download/
+2. If you don't have Node.js https://nodejs.org/en/download/
+  
 3. Install NPM packages
    ```sh
    npm install
    ```
-
+4. To run project
+   ```sh
+   npm start
+   ```
+ 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -88,7 +92,6 @@ Login as Maintenence:
 
 Login as Tenant:
 - bankhuc@hheights.com
-- see tenantlist.txt for more
 - password123
 
 <p align="right">(<a href="#top">back to top</a>)</p>
