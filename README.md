@@ -44,9 +44,8 @@ Overall, this system will provide a desirable user experience for the landlords,
 ### Built With
 
 * [Angular](https://angular.io/)
+* [Angular Material](https://material.angular.io/)
 * [Firebase](https://firebase.google.com/)
-* [bootstrap](https://getbootstrap.com/)
-* [jquery](https://code.jquery.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
